@@ -59,7 +59,7 @@ const steps = [
     title: "Install from Google Play",
     desc: "Open the Play Store listing on your Android device and tap Install. You'll receive updates automatically, just like a normal app.",
     cta: "Open on Google Play",
-    href: "https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller&hl=en-US&ah=kqg8zlrafJhmk9p_AqPMxpi5-u0",
+    href: "https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller",
     tip: "If you don't see the app right away, wait a few minutes then refresh the Play Store.",
   },
 ];
