@@ -15,16 +15,87 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://universal-installer.pwhs.app";
+const SITE_NAME = "Universal Installer";
+const SITE_DESCRIPTION =
+  "Install APK, APKS, XAPK, and APKM files on Android with split APK support, silent install via Shizuku, VirusTotal scanning, and batch uninstall — open source, no ads, no tracking.";
+
 export const metadata: Metadata = {
-  title: "Universal Installer — Install APK, APKS, XAPK & APKM",
-  description:
-    "A modern Android package manager with split APK support and silent install. Install APK, APKS, XAPK and APKM files the default installer can't handle.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Universal Installer — Install APK, APKS, XAPK & APKM on Android",
+    template: "%s · Universal Installer",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "Universal Installer",
+    "APK installer",
+    "APKS installer",
+    "XAPK installer",
+    "APKM installer",
+    "split APK",
+    "split APK installer",
+    "install split APK",
+    "Android package installer",
+    "silent install Android",
+    "Shizuku installer",
+    "install APK without prompt",
+    "APKPure installer",
+    "APKMirror installer",
+    "VirusTotal APK scan",
+    "batch uninstall Android",
+    "open source APK installer",
+    "Material You installer",
+    "install bundled APK",
+    "app.pwhs.universalinstaller",
+  ],
+  authors: [{ name: "pass-with-high-score", url: "https://github.com/pass-with-high-score" }],
+  creator: "pass-with-high-score",
+  publisher: "pass-with-high-score",
+  category: "technology",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Universal Installer",
-    description:
-      "Install APK, APKS, XAPK & APKM with split APK support and silent install.",
-    images: ["/images/featureGraphic.png"],
     type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: "Universal Installer — Install APK, APKS, XAPK & APKM on Android",
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+    images: [
+      {
+        url: "/images/featureGraphic.png",
+        width: 1024,
+        height: 500,
+        alt: "Universal Installer — modern Android package manager",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Universal Installer — Install APK, APKS, XAPK & APKM",
+    description: SITE_DESCRIPTION,
+    images: ["/images/featureGraphic.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
+  other: {
+    "google-play-app": "app-id=app.pwhs.universalinstaller",
   },
 };
 

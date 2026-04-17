@@ -4,9 +4,34 @@ import Link from "next/link";
 import { Users, FlaskConical, Download, ExternalLink, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Join the beta — Universal Installer",
+  title: "Join the beta on Google Play",
   description:
-    "Help test Universal Installer before release. Join the testers group, opt in to the closed test, and install from Google Play.",
+    "Become a Universal Installer tester on Google Play. Three steps: join the Google Group, opt in to the closed test, then install from the Play Store.",
+  keywords: [
+    "Universal Installer beta",
+    "Universal Installer tester",
+    "Google Play closed test",
+    "APK installer beta",
+    "join Android app beta",
+    "Google Play testing Universal Installer",
+  ],
+  alternates: { canonical: "/testing" },
+  openGraph: {
+    title: "Join the Universal Installer beta",
+    description:
+      "Get early access on Google Play. Three quick steps to become a tester.",
+    url: "/testing",
+    type: "website",
+    images: ["/images/featureGraphic.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Join the Universal Installer beta on Google Play",
+    description:
+      "Three steps to become a tester: join group, opt in, install.",
+    images: ["/images/featureGraphic.png"],
+  },
+  robots: { index: true, follow: true },
 };
 
 const steps = [

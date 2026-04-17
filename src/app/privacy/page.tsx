@@ -2,9 +2,18 @@ import type { Metadata } from "next";
 import { Mail } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Universal Installer",
+  title: "Privacy Policy",
   description:
-    "How Universal Installer handles your data: no collection, no tracking, no ads.",
+    "How Universal Installer handles your data: no collection, no tracking, no ads. Fully open source Android package installer.",
+  alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "Privacy Policy — Universal Installer",
+    description:
+      "No accounts, no analytics, no tracking. See exactly what the app stores on your device.",
+    url: "/privacy",
+    type: "article",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function PrivacyPage() {

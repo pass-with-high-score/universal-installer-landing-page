@@ -61,9 +61,73 @@ const screenshots = [
   { src: "/images/phoneScreenshots/4.jpg", alt: "Install history" },
 ];
 
+const SITE_URL = "https://universal-installer.pwhs.app";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Universal Installer",
+      description:
+        "Modern Android package manager with split APK support and silent install.",
+      inLanguage: "en",
+      publisher: { "@id": `${SITE_URL}/#org` },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#org`,
+      name: "pass-with-high-score",
+      url: "https://github.com/pass-with-high-score",
+      logo: `${SITE_URL}/icon.png`,
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/#app`,
+      name: "Universal Installer",
+      operatingSystem: "Android 7.0+",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Package Manager",
+      description:
+        "Install APK, APKS, XAPK, and APKM files on Android. Supports split APKs, VirusTotal scanning, batch uninstall, and silent install via Shizuku.",
+      url: SITE_URL,
+      image: `${SITE_URL}/images/featureGraphic.png`,
+      downloadUrl:
+        "https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller",
+      installUrl:
+        "https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller",
+      softwareVersion: "1.0",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: { "@id": `${SITE_URL}/#org` },
+      publisher: { "@id": `${SITE_URL}/#org` },
+      featureList: [
+        "Install APK, APKS, XAPK, APKM",
+        "Split APK support",
+        "Silent install via Shizuku",
+        "VirusTotal malware scanning",
+        "Batch uninstall",
+        "Installation history",
+        "Material You theming",
+      ],
+      keywords:
+        "APK installer, APKS installer, XAPK installer, APKM installer, split APK, Shizuku, Android package manager",
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div

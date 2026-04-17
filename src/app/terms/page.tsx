@@ -2,9 +2,18 @@ import type { Metadata } from "next";
 import { Mail } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Universal Installer",
+  title: "Terms of Service",
   description:
-    "The terms under which you may use Universal Installer, an open-source Android package manager.",
+    "Terms of Service for Universal Installer, an open-source Android package installer supporting APK, APKS, XAPK, and APKM.",
+  alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "Terms of Service — Universal Installer",
+    description:
+      "The terms under which you may use Universal Installer.",
+    url: "/terms",
+    type: "article",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function TermsPage() {
