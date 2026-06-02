@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Users } from "lucide-react";
+import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X } from "lucide-react";
 
 const formats = [
   { name: "APK", desc: "Standard Android packages" },
@@ -50,6 +50,16 @@ const features = [
     desc: "Select multiple apps for batch uninstallation or multi-package installations.",
     icon: <Layout className="w-5 h-5" />,
   },
+];
+
+const comparison = [
+  { feature: "Split APK (.apks, .apkm)", universal: true, system: false, others: true },
+  { feature: "XAPK with OBB Support", universal: true, system: false, others: false },
+  { feature: "Installer Spoofing", universal: true, system: false, others: "limited" },
+  { feature: "Installer Profiles", universal: true, system: false, others: false },
+  { feature: "LAN Sync & Share", universal: true, system: false, others: false },
+  { feature: "VirusTotal Integration", universal: true, system: false, others: false },
+  { feature: "Material 3 Expressive UI", universal: true, system: "standard", others: "classic" },
 ];
 
 const shizuku = [
@@ -165,7 +175,7 @@ export default async function Home() {
               <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--brand)]" />
               Expressive · Open source · No ads
             </span>
-            <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl md:text-6xl dark:text-white">
+            <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl md:text-6xl dark:text-white font-display">
               The <span className="text-[color:var(--brand)]">premium</span>
               <br className="hidden sm:inline" /> Android installer.
             </h1>
@@ -189,7 +199,7 @@ export default async function Home() {
                     ))}
                   </div>
                 </div>
-                <span className="text-sm text-zinc-500 dark:text-zinc-400">Rating</span>
+                <span className="text-sm text-zinc-500 dark:text-zinc-400">App Store Rating</span>
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-zinc-900 dark:text-white">{stars}</span>
@@ -197,7 +207,21 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+            <div className="mt-8 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap items-center">
+              <a
+                href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-transform hover:scale-105 active:scale-95"
+              >
+                <Image
+                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                    alt="Get it on Google Play"
+                    width={200}
+                    height={80}
+                    className="h-14 w-auto"
+                />
+              </a>
               <a
                 href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
                 target="_blank"
@@ -205,27 +229,8 @@ export default async function Home() {
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[color:var(--brand)] px-6 text-base font-medium text-white shadow-sm transition-all hover:bg-[color:var(--brand-dark)] hover:scale-105 active:scale-95 sm:w-auto"
               >
                 <Download size={18} aria-hidden />
-                Download APK
+                Direct APK
               </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-6 text-base font-medium text-zinc-900 hover:border-black/20 sm:w-auto dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:border-white/25"
-              >
-                Google Play
-                <ArrowRight size={18} aria-hidden />
-              </a>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {formats.map((f) => (
-                <span
-                  key={f.name}
-                  className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-zinc-700 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200"
-                >
-                  {f.name}
-                </span>
-              ))}
             </div>
           </div>
 
@@ -245,9 +250,45 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Comparison Table */}
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-24">
+        <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Universal vs. The Others</h2>
+            <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Why power users choose Universal Installer.</p>
+        </div>
+        <div className="overflow-x-auto rounded-3xl border border-black/5 bg-white shadow-sm dark:border-white/10 dark:bg-zinc-950">
+            <table className="w-full text-left border-collapse">
+                <thead>
+                    <tr className="border-b border-black/5 dark:border-white/10">
+                        <th className="px-6 py-4 font-semibold">Features</th>
+                        <th className="px-6 py-4 font-semibold text-[color:var(--brand)]">Universal</th>
+                        <th className="px-6 py-4 font-semibold opacity-50">System</th>
+                        <th className="px-6 py-4 font-semibold opacity-50">Others</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-black/5 dark:divide-white/10">
+                    {comparison.map((item) => (
+                        <tr key={item.feature} className="hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
+                            <td className="px-6 py-4 text-sm font-medium">{item.feature}</td>
+                            <td className="px-6 py-4 text-[color:var(--brand)]">
+                                {item.universal === true ? <Check size={20} /> : item.universal}
+                            </td>
+                            <td className="px-6 py-4 text-zinc-400">
+                                {item.system === true ? <Check size={20} /> : item.system === false ? <X size={20} className="opacity-30" /> : <span className="text-xs uppercase font-bold">{item.system}</span>}
+                            </td>
+                            <td className="px-6 py-4 text-zinc-400">
+                                {item.others === true ? <Check size={20} /> : item.others === false ? <X size={20} className="opacity-30" /> : <span className="text-xs uppercase font-bold">{item.others}</span>}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+      </section>
+
       {/* Supported formats */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl font-display">
           Supported formats
         </h2>
         <p className="mt-2 max-w-2xl text-zinc-600 dark:text-zinc-400">
@@ -272,7 +313,7 @@ export default async function Home() {
 
       {/* Features */}
       <section id="features" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12 sm:px-6 sm:py-16">
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl font-display">
           A new standard for package management
         </h2>
         <p className="mt-2 max-w-2xl text-zinc-600 dark:text-zinc-400">
@@ -282,9 +323,9 @@ export default async function Home() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="rounded-2xl border border-black/5 bg-white p-6 transition-all hover:border-[color:var(--brand)]/40 hover:shadow-md dark:border-white/10 dark:bg-white/5"
+              className="rounded-2xl border border-black/5 bg-white p-6 transition-all hover:border-[color:var(--brand)]/40 hover:shadow-md dark:border-white/10 dark:bg-white/5 group"
             >
-              <div className="mb-4 text-[color:var(--brand)]">
+              <div className="mb-4 text-[color:var(--brand)] transition-transform group-hover:scale-110">
                 {f.icon}
               </div>
               <h3 className="text-base font-semibold text-zinc-900 dark:text-white">
@@ -300,7 +341,7 @@ export default async function Home() {
 
       {/* Screenshots */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl font-display">
           The Living UI
         </h2>
         <p className="mt-2 max-w-2xl text-zinc-600 dark:text-zinc-400">
@@ -310,14 +351,14 @@ export default async function Home() {
           {screenshots.map((s) => (
             <div
               key={s.src}
-              className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm dark:border-white/10 dark:bg-zinc-900"
+              className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm dark:border-white/10 dark:bg-zinc-900 group"
             >
               <Image
                 src={s.src}
                 alt={s.alt}
                 width={720}
                 height={1520}
-                className="h-auto w-full transition-transform hover:scale-105"
+                className="h-auto w-full transition-transform duration-500 group-hover:scale-110"
               />
             </div>
           ))}
@@ -326,13 +367,13 @@ export default async function Home() {
 
       {/* Privileged mode */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <div className="overflow-hidden rounded-3xl border border-black/5 bg-gradient-to-br from-[color:var(--brand-soft)] to-white p-6 sm:p-10 dark:border-white/10 dark:from-[#2a1407] dark:to-zinc-950">
+        <div className="overflow-hidden rounded-3xl border border-black/5 bg-gradient-to-br from-[color:var(--brand-soft)] to-white p-6 sm:p-10 dark:border-white/10 dark:from-[#2a1407] dark:to-zinc-950 shadow-inner">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
             <div className="max-w-xl">
               <span className="inline-flex rounded-full bg-white/70 px-3 py-1 text-xs font-medium text-[color:var(--brand-dark)] dark:bg-black/30 dark:text-orange-300">
                 Shizuku · Root
               </span>
-              <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+              <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl font-display">
                 Privileged power
               </h2>
               <p className="mt-3 text-zinc-700 dark:text-zinc-300">
@@ -363,7 +404,7 @@ export default async function Home() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
         <div className="grid gap-8 md:grid-cols-2 md:items-center">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl font-display">
               Privacy you can actually verify
             </h2>
             <p className="mt-3 text-zinc-600 dark:text-zinc-300">
@@ -410,7 +451,7 @@ export default async function Home() {
 
       {/* Sponsor */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <div className="relative overflow-hidden rounded-3xl border border-pink-500/20 bg-gradient-to-br from-pink-50 via-white to-orange-50 p-6 sm:p-10 dark:border-pink-400/20 dark:from-pink-500/10 dark:via-zinc-950 dark:to-orange-500/10">
+        <div className="relative overflow-hidden rounded-3xl border border-pink-500/20 bg-gradient-to-br from-pink-50 via-white to-orange-50 p-6 sm:p-10 dark:border-pink-400/20 dark:from-pink-500/10 dark:via-zinc-950 dark:to-orange-500/10 shadow-lg">
           <div
             aria-hidden
             className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-pink-400/20 blur-3xl"
@@ -421,7 +462,7 @@ export default async function Home() {
                 <Heart size={12} aria-hidden className="fill-current" />
                 Support development
               </span>
-              <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+              <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl font-display">
                 Sponsor development
               </h2>
               <p className="mt-3 text-zinc-700 dark:text-zinc-300">
@@ -444,36 +485,42 @@ export default async function Home() {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
-        <div className="flex flex-col items-center gap-5 rounded-3xl border border-black/5 bg-white p-6 text-center shadow-sm sm:p-10 dark:border-white/10 dark:bg-white/5">
+        <div className="flex flex-col items-center gap-5 rounded-3xl border border-black/5 bg-white p-6 text-center shadow-lg sm:p-10 dark:border-white/10 dark:bg-white/5">
           <Image
             src="/images/icon.png"
             alt=""
             width={56}
             height={56}
-            className="rounded-2xl"
+            className="rounded-2xl shadow-sm"
           />
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Get Universal Installer
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl font-display">
+            The ultimate package installer.
           </h2>
           <p className="max-w-xl text-zinc-600 dark:text-zinc-300">
-            Available on Google Play and GitHub.
+            Join 30,000+ users managing their Android apps with power and style.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
              <a
               href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-zinc-900 px-8 text-base font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 transition-all hover:scale-105 active:scale-95"
+              className="transition-transform hover:scale-105 active:scale-95"
             >
-              Google Play
+               <Image
+                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                    alt="Get it on Google Play"
+                    width={200}
+                    height={80}
+                    className="h-16 w-auto"
+                />
             </a>
             <a
               href="https://github.com/pass-with-high-score/universal-installer"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-8 text-base font-medium text-zinc-900 hover:border-black/20 dark:border-white/15 dark:bg-white/5 dark:text-white transition-all hover:scale-105 active:scale-95"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-full border-2 border-black/10 bg-white px-10 text-base font-bold text-zinc-900 hover:border-black/20 dark:border-white/15 dark:bg-white/5 dark:text-white transition-all hover:scale-105 active:scale-95"
             >
-              <Github size={18} aria-hidden />
+              <Github size={20} aria-hidden />
               GitHub
             </a>
           </div>
