@@ -19,12 +19,12 @@ const geistMono = Geist_Mono({
 const SITE_URL = "https://universal-installer.pwhs.app";
 const SITE_NAME = "Universal Installer";
 const SITE_DESCRIPTION =
-  "Professional Android package manager with expressive UI, installer profiles, silent install via Shizuku, and LAN sharing. Open source and secure.";
+  "Professional Android package manager with expressive UI, installer profiles, silent install via Shizuku, and LAN sharing. The ultimate APK, APKS, XAPK, and APKM installer for power users. Open source and secure.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Universal Installer — Premium APK, APKS, XAPK & APKM Installer",
+    default: "Universal Installer — The Ultimate APK, XAPK & Split APK Installer",
     template: "%s · Universal Installer",
   },
   description: SITE_DESCRIPTION,
@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     "VirusTotal APK scan",
     "LAN APK share",
     "open source APK installer",
+    "best android package manager",
     "app.pwhs.universalinstaller",
   ],
   authors: [{ name: "pass-with-high-score", url: "https://github.com/pass-with-high-score" }],
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Universal Installer — Premium Android Package Manager",
+    title: "Universal Installer — Premium APK & XAPK Installer for Android",
     description: SITE_DESCRIPTION,
     locale: "en_US",
     images: [
@@ -75,13 +76,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Universal Installer — Premium APK & XAPK Installer",
+    title: "Universal Installer — Professional APK, XAPK & APKM Installer",
     description: SITE_DESCRIPTION,
     images: ["/images/featureGraphic.png"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
   },
   icons: {
     icon: "/icon.png",
@@ -89,6 +95,7 @@ export const metadata: Metadata = {
   },
   other: {
     "google-play-app": "app-id=app.pwhs.universalinstaller",
+    "apple-mobile-web-app-title": "Universal Installer",
   },
 };
 

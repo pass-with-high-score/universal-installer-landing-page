@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X } from "lucide-react";
+import { FaGooglePlay } from "react-icons/fa";
 
 const formats = [
   { name: "APK", desc: "Standard Android packages" },
@@ -207,30 +208,35 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="mt-8 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap items-center">
+            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
               <a
                 href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-transform hover:scale-105 active:scale-95"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-zinc-900 px-6 text-base font-medium text-white shadow-sm transition-all hover:bg-zinc-800 hover:scale-105 active:scale-95 sm:w-auto dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
               >
-                <Image
-                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                    alt="Get it on Google Play"
-                    width={200}
-                    height={80}
-                    className="h-14 w-auto"
-                />
+                <FaGooglePlay size={18} aria-hidden />
+                Google Play
               </a>
               <a
                 href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[color:var(--brand)] px-6 text-base font-medium text-white shadow-sm transition-all hover:bg-[color:var(--brand-dark)] hover:scale-105 active:scale-95 sm:w-auto"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-6 text-base font-medium text-zinc-900 hover:border-black/20 transition-all hover:scale-105 active:scale-95 sm:w-auto dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:border-white/25"
               >
                 <Download size={18} aria-hidden />
                 Direct APK
               </a>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {formats.map((f) => (
+                <span
+                  key={f.name}
+                  className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-zinc-700 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200"
+                >
+                  {f.name}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -253,7 +259,7 @@ export default async function Home() {
       {/* Comparison Table */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-24">
         <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Universal vs. The Others</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-display">Universal vs. The Others</h2>
             <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Why power users choose Universal Installer.</p>
         </div>
         <div className="overflow-x-auto rounded-3xl border border-black/5 bg-white shadow-sm dark:border-white/10 dark:bg-zinc-950">
@@ -504,15 +510,10 @@ export default async function Home() {
               href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-transform hover:scale-105 active:scale-95"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-zinc-900 px-10 text-base font-bold text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 transition-all hover:scale-105 active:scale-95"
             >
-               <Image
-                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                    alt="Get it on Google Play"
-                    width={200}
-                    height={80}
-                    className="h-16 w-auto"
-                />
+               <FaGooglePlay size={20} aria-hidden />
+               Google Play
             </a>
             <a
               href="https://github.com/pass-with-high-score/universal-installer"
