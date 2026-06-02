@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User } from "lucide-react";
+import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Users } from "lucide-react";
 
 const formats = [
   { name: "APK", desc: "Standard Android packages" },
@@ -71,6 +71,18 @@ const screenshots = [
 
 const SITE_URL = "https://universal-installer.pwhs.app";
 
+async function getGitHubStars() {
+  try {
+    const res = await fetch("https://api.github.com/repos/pass-with-high-score/universal-installer", {
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    });
+    const data = await res.json();
+    return data.stargazers_count || "500+";
+  } catch (e) {
+    return "500+";
+  }
+}
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -129,7 +141,9 @@ const structuredData = {
   ],
 };
 
-export default function Home() {
+export default async function Home() {
+  const stars = await getGitHubStars();
+
   return (
     <>
       <script
@@ -159,6 +173,30 @@ export default function Home() {
               Universal Installer is a professional package manager with fluid animations,
               custom installer profiles, and powerful privileged features.
             </p>
+
+            {/* Stats Row */}
+            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-zinc-900 dark:text-white">30k+</span>
+                <span className="text-sm text-zinc-500 dark:text-zinc-400">Downloads</span>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1">
+                  <span className="text-2xl font-bold text-zinc-900 dark:text-white">5.0</span>
+                  <div className="flex text-orange-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={14} className="fill-current" />
+                    ))}
+                  </div>
+                </div>
+                <span className="text-sm text-zinc-500 dark:text-zinc-400">Rating</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-zinc-900 dark:text-white">{stars}</span>
+                <span className="text-sm text-zinc-500 dark:text-zinc-400">GitHub Stars</span>
+              </div>
+            </div>
+
             <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
               <a
                 href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
@@ -326,7 +364,7 @@ export default function Home() {
         <div className="grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Privacy you can verify
+              Privacy you can actually verify
             </h2>
             <p className="mt-3 text-zinc-600 dark:text-zinc-300">
               No accounts, no ads, no analytics. Universal Installer is fully open
