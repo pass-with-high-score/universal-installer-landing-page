@@ -19,12 +19,12 @@ const geistMono = Geist_Mono({
 const SITE_URL = "https://universal-installer.pwhs.app";
 const SITE_NAME = "Universal Installer";
 const SITE_DESCRIPTION =
-  "Install APK, APKS, XAPK, and APKM files on Android with split APK support, silent install via Shizuku, VirusTotal scanning, and batch uninstall — open source, no ads, no tracking.";
+  "Professional Android package manager with expressive UI, installer profiles, silent install via Shizuku, and LAN sharing. Open source and secure.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Universal Installer — Install APK, APKS, XAPK & APKM on Android",
+    default: "Universal Installer — Premium APK, APKS, XAPK & APKM Installer",
     template: "%s · Universal Installer",
   },
   description: SITE_DESCRIPTION,
@@ -35,20 +35,19 @@ export const metadata: Metadata = {
     "APKS installer",
     "XAPK installer",
     "APKM installer",
-    "split APK",
+    "installer profiles",
+    "expressive ui",
+    "bouncy animations",
     "split APK installer",
-    "install split APK",
     "Android package installer",
     "silent install Android",
     "Shizuku installer",
-    "install APK without prompt",
+    "Root installer",
     "APKPure installer",
     "APKMirror installer",
     "VirusTotal APK scan",
-    "batch uninstall Android",
+    "LAN APK share",
     "open source APK installer",
-    "Material You installer",
-    "install bundled APK",
     "app.pwhs.universalinstaller",
   ],
   authors: [{ name: "pass-with-high-score", url: "https://github.com/pass-with-high-score" }],
@@ -62,7 +61,7 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Universal Installer — Install APK, APKS, XAPK & APKM on Android",
+    title: "Universal Installer — Premium Android Package Manager",
     description: SITE_DESCRIPTION,
     locale: "en_US",
     images: [
@@ -70,26 +69,19 @@ export const metadata: Metadata = {
         url: "/images/featureGraphic.png",
         width: 1024,
         height: 500,
-        alt: "Universal Installer — modern Android package manager",
+        alt: "Universal Installer — expressive Android package manager",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Universal Installer — Install APK, APKS, XAPK & APKM",
+    title: "Universal Installer — Premium APK & XAPK Installer",
     description: SITE_DESCRIPTION,
     images: ["/images/featureGraphic.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
   },
   icons: {
     icon: "/icon.png",
@@ -128,15 +120,9 @@ export default function RootLayout({
             <nav className="flex items-center gap-1 text-sm font-medium sm:gap-2">
               <Link
                 href="/#features"
-                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 md:inline dark:text-zinc-300 dark:hover:text-white"
+                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               >
                 Features
-              </Link>
-              <Link
-                href="/testing"
-                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 sm:inline dark:text-zinc-300 dark:hover:text-white"
-              >
-                Beta
               </Link>
               <Link
                 href="/privacy"
@@ -187,9 +173,6 @@ export default function RootLayout({
               <span>© {new Date().getFullYear()} Universal Installer</span>
             </div>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              <Link href="/testing" className="hover:text-zinc-900 dark:hover:text-white">
-                Join Beta
-              </Link>
               <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-white">
                 Privacy Policy
               </Link>
