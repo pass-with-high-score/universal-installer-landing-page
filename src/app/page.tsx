@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X } from "lucide-react";
 import { FaGooglePlay } from "react-icons/fa";
+import { SiFdroid } from "react-icons/si";
 
 const formats = [
   { name: "APK", desc: "Standard Android packages" },
@@ -210,22 +211,20 @@ export default async function Home() {
 
             <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
               <a
-                href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-zinc-900 px-6 text-base font-medium text-white shadow-sm transition-all hover:bg-zinc-800 hover:scale-105 active:scale-95 sm:w-auto dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
+                href="#download"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[color:var(--brand)] px-8 text-base font-medium text-white shadow-sm transition-all hover:bg-[color:var(--brand-dark)] hover:scale-105 active:scale-95 sm:w-auto"
               >
-                <FaGooglePlay size={18} aria-hidden />
-                Google Play
+                <Download size={18} aria-hidden />
+                Get Universal Installer
               </a>
               <a
-                href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
+                href="https://github.com/pass-with-high-score/universal-installer"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-6 text-base font-medium text-zinc-900 hover:border-black/20 transition-all hover:scale-105 active:scale-95 sm:w-auto dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:border-white/25"
               >
-                <Download size={18} aria-hidden />
-                Direct APK
+                <Github size={18} aria-hidden />
+                Source Code
               </a>
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -253,6 +252,96 @@ export default async function Home() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Choose your version */}
+      <section id="download" className="mx-auto max-w-6xl px-4 py-12 scroll-mt-20 sm:px-6 sm:py-24">
+        <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-display">Choose your version</h2>
+            <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Select the flavor that best fits your device setup.</p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2">
+            {/* Full Version */}
+            <div className="flex flex-col rounded-3xl border-2 border-[color:var(--brand)] bg-white p-8 dark:bg-zinc-950 shadow-xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 bg-[color:var(--brand)] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-widest">Recommended</div>
+                <h3 className="text-2xl font-bold">Full Version</h3>
+                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Everything the app has to offer. Best for power users.</p>
+                <div className="mt-6 flex-1">
+                    <ul className="space-y-3">
+                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+                            <Check size={18} className="text-green-500" /> Root Support included
+                        </li>
+                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+                            <Check size={18} className="text-green-500" /> Shizuku Support
+                        </li>
+                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+                            <Check size={18} className="text-green-500" /> All features unlocked
+                        </li>
+                    </ul>
+                </div>
+                <div className="mt-8 flex flex-col gap-3">
+                    <a
+                        href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[color:var(--brand)] text-white font-bold transition-all hover:bg-[color:var(--brand-dark)] hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                        <Github size={18} />
+                        GitHub Release
+                    </a>
+                    <div className="grid grid-cols-2 gap-3">
+                        <a
+                            href="https://f-droid.org/packages/app.pwhs.universalinstaller"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 font-semibold text-sm transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900"
+                        >
+                            <SiFdroid size={16} className="text-[#3F6AA1]" />
+                            F-Droid
+                        </a>
+                        <a
+                            href="https://apt.izzysoft.de/fdroid/index/apk/app.pwhs.universalinstaller"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 font-semibold text-sm transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900"
+                        >
+                            <Download size={16} />
+                            IzzyOnDroid
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {/* Store Version */}
+            <div className="flex flex-col rounded-3xl border border-black/5 bg-zinc-50 p-8 dark:bg-zinc-900 dark:border-white/5 group">
+                <h3 className="text-2xl font-bold">Store Version</h3>
+                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Play Store compliant. High security and easy updates.</p>
+                <div className="mt-6 flex-1">
+                    <ul className="space-y-3">
+                        <li className="flex items-center gap-2 text-sm text-zinc-400">
+                            <X size={18} className="text-red-500 opacity-50" /> No Root Support
+                        </li>
+                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+                            <Check size={18} className="text-green-500" /> Shizuku Support
+                        </li>
+                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+                            <Check size={18} className="text-green-500" /> Auto-updates via Play Store
+                        </li>
+                    </ul>
+                </div>
+                <div className="mt-8">
+                    <a
+                        href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-zinc-900"
+                    >
+                        <FaGooglePlay size={18} />
+                        Get it on Google Play
+                    </a>
+                </div>
+            </div>
         </div>
       </section>
 
@@ -510,7 +599,7 @@ export default async function Home() {
               href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-zinc-900 px-10 text-base font-bold text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 transition-all hover:scale-105 active:scale-95"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-zinc-900 px-10 text-base font-bold text-white hover:bg-black dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 transition-all hover:scale-105 active:scale-95"
             >
                <FaGooglePlay size={20} aria-hidden />
                Google Play
