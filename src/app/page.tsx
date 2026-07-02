@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X } from "lucide-react";
+import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X, Tv } from "lucide-react";
 import { FaGooglePlay } from "react-icons/fa";
 import { SiFdroid } from "react-icons/si";
 
@@ -62,6 +62,7 @@ const comparison = [
   { feature: "LAN Sync & Share", universal: true, system: false, others: false },
   { feature: "VirusTotal Integration", universal: true, system: false, others: false },
   { feature: "Material 3 Expressive UI", universal: true, system: "standard", others: "classic" },
+  { feature: "Android TV Optimization", universal: true, system: false, others: false },
 ];
 
 const shizuku = [
@@ -119,7 +120,7 @@ const structuredData = {
       "@type": "SoftwareApplication",
       "@id": `${SITE_URL}/#app`,
       name: "Universal Installer",
-      operatingSystem: "Android 7.0+",
+      operatingSystem: "Android 7.0+, Android TV",
       applicationCategory: "UtilitiesApplication",
       applicationSubCategory: "Package Manager",
       description:
@@ -179,7 +180,7 @@ export default async function Home() {
             </span>
             <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl md:text-6xl dark:text-white font-display">
               The <span className="text-[color:var(--brand)]">premium</span>
-              <br className="hidden sm:inline" /> Android installer.
+              <br className="hidden sm:inline" /> Android & TV installer.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300">
               Universal Installer is a professional package manager with fluid animations,
@@ -262,11 +263,11 @@ export default async function Home() {
             <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Select the flavor that best fits your device setup.</p>
         </div>
         <div className="grid gap-8 md:grid-cols-2">
-            {/* Full Version */}
+            {/* Android Version */}
             <div className="flex flex-col rounded-3xl border-2 border-[color:var(--brand)] bg-white p-8 dark:bg-zinc-950 shadow-xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 bg-[color:var(--brand)] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-widest">Recommended</div>
-                <h3 className="text-2xl font-bold">Full Version</h3>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Everything the app has to offer. Best for power users.</p>
+                <h3 className="text-2xl font-bold">Android Version</h3>
+                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Everything the app has to offer. Available everywhere.</p>
                 <div className="mt-6 flex-1">
                     <ul className="space-y-3">
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
@@ -282,10 +283,19 @@ export default async function Home() {
                 </div>
                 <div className="mt-8 flex flex-col gap-3">
                     <a
+                        href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-zinc-900"
+                    >
+                        <FaGooglePlay size={18} />
+                        Get it on Google Play
+                    </a>
+                    <a
                         href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[color:var(--brand)] text-white font-bold transition-all hover:bg-[color:var(--brand-dark)] hover:scale-[1.02] active:scale-[0.98]"
+                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[color:var(--brand)] text-white font-bold transition-all hover:bg-[color:var(--brand-dark)] hover:scale-[1.02] active:scale-[0.98]"
                     >
                         <Github size={18} />
                         GitHub Release
@@ -313,32 +323,32 @@ export default async function Home() {
                 </div>
             </div>
 
-            {/* Store Version */}
+            {/* Android TV Version */}
             <div className="flex flex-col rounded-3xl border border-black/5 bg-zinc-50 p-8 dark:bg-zinc-900 dark:border-white/5 group">
-                <h3 className="text-2xl font-bold">Store Version</h3>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Play Store compliant. High security and easy updates.</p>
+                <h3 className="text-2xl font-bold">Android TV</h3>
+                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Optimized for big screens and remote controls.</p>
                 <div className="mt-6 flex-1">
                     <ul className="space-y-3">
-                        <li className="flex items-center gap-2 text-sm text-zinc-400">
-                            <X size={18} className="text-red-500 opacity-50" /> No Root Support
+                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+                            <Check size={18} className="text-green-500" /> D-Pad Navigation
                         </li>
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> Shizuku Support
+                            <Check size={18} className="text-green-500" /> LAN Sync & Share
                         </li>
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> Auto-updates via Play Store
+                            <Check size={18} className="text-green-500" /> Root & Shizuku Support
                         </li>
                     </ul>
                 </div>
-                <div className="mt-8">
+                <div className="mt-8 flex flex-col gap-3">
                     <a
-                        href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
+                        href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-zinc-900"
                     >
-                        <FaGooglePlay size={18} />
-                        Get it on Google Play
+                        <Github size={18} />
+                        Download from GitHub
                     </a>
                 </div>
             </div>
