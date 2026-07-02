@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Github, Heart } from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import FirebaseAnalytics from "@/components/FirebaseAnalytics";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -208,6 +209,7 @@ export default function RootLayout({
           </div>
         </footer>
         <Analytics />
+        <FirebaseAnalytics />
       </body>
     </html>
   );
