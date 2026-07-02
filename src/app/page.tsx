@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import TrackedLink from "@/components/TrackedLink";
 import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X, Tv } from "lucide-react";
 import { FaGooglePlay } from "react-icons/fa";
 import { SiFdroid } from "react-icons/si";
@@ -211,22 +212,24 @@ export default async function Home() {
             </div>
 
             <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-              <a
+              <TrackedLink
                 href="#download"
+                eventName="click_get_installer"
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[color:var(--brand)] px-8 text-base font-medium text-white shadow-sm transition-all hover:bg-[color:var(--brand-dark)] hover:scale-105 active:scale-95 sm:w-auto"
               >
                 <Download size={18} aria-hidden />
                 Get Universal Installer
-              </a>
-              <a
+              </TrackedLink>
+              <TrackedLink
                 href="https://github.com/pass-with-high-score/universal-installer"
+                eventName="click_source_code"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-6 text-base font-medium text-zinc-900 hover:border-black/20 transition-all hover:scale-105 active:scale-95 sm:w-auto dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:border-white/25"
               >
                 <Github size={18} aria-hidden />
                 Source Code
-              </a>
+              </TrackedLink>
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
               {formats.map((f) => (
@@ -282,43 +285,51 @@ export default async function Home() {
                     </ul>
                 </div>
                 <div className="mt-8 flex flex-col gap-3">
-                    <a
+                    <TrackedLink
                         href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
+                        eventName="click_download"
+                        eventParams={{ platform: 'play_store', device: 'android' }}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-zinc-900"
                     >
                         <FaGooglePlay size={18} />
                         Get it on Google Play
-                    </a>
-                    <a
+                    </TrackedLink>
+                    <TrackedLink
                         href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
+                        eventName="click_download"
+                        eventParams={{ platform: 'github', device: 'android' }}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[color:var(--brand)] text-white font-bold transition-all hover:bg-[color:var(--brand-dark)] hover:scale-[1.02] active:scale-[0.98]"
                     >
                         <Github size={18} />
                         GitHub Release
-                    </a>
+                    </TrackedLink>
                     <div className="grid grid-cols-2 gap-3">
-                        <a
+                        <TrackedLink
                             href="https://f-droid.org/packages/app.pwhs.universalinstaller"
+                            eventName="click_download"
+                            eventParams={{ platform: 'fdroid', device: 'android' }}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 font-semibold text-sm transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900"
                         >
                             <SiFdroid size={16} className="text-[#3F6AA1]" />
                             F-Droid
-                        </a>
-                        <a
+                        </TrackedLink>
+                        <TrackedLink
                             href="https://apt.izzysoft.de/fdroid/index/apk/app.pwhs.universalinstaller"
+                            eventName="click_download"
+                            eventParams={{ platform: 'izzyondroid', device: 'android' }}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 font-semibold text-sm transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900"
                         >
                             <Download size={16} />
                             IzzyOnDroid
-                        </a>
+                        </TrackedLink>
                     </div>
                 </div>
             </div>
@@ -341,15 +352,17 @@ export default async function Home() {
                     </ul>
                 </div>
                 <div className="mt-8 flex flex-col gap-3">
-                    <a
+                    <TrackedLink
                         href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
+                        eventName="click_download"
+                        eventParams={{ platform: 'github', device: 'tv' }}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-zinc-900"
                     >
                         <Github size={18} />
                         Download from GitHub
-                    </a>
+                    </TrackedLink>
                 </div>
             </div>
         </div>
@@ -575,15 +588,16 @@ export default async function Home() {
                 consider sponsoring the project on GitHub — every contribution helps.
               </p>
             </div>
-            <a
+            <TrackedLink
               href="https://github.com/sponsors/pass-with-high-score"
+              eventName="click_sponsor"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 w-full flex-none items-center justify-center gap-2 rounded-full bg-pink-600 px-6 text-base font-medium text-white shadow-sm transition-all hover:bg-pink-700 hover:scale-105 active:scale-95 sm:w-auto"
             >
               <Heart size={18} aria-hidden className="fill-current" />
               Become a sponsor
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>
@@ -605,24 +619,28 @@ export default async function Home() {
             Join 30,000+ users managing their Android apps with power and style.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 items-center">
-             <a
+             <TrackedLink
               href="https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
+              eventName="click_download_cta"
+              eventParams={{ platform: 'play_store' }}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-zinc-900 px-10 text-base font-bold text-white hover:bg-black dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 transition-all hover:scale-105 active:scale-95"
             >
                <FaGooglePlay size={20} aria-hidden />
                Google Play
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
               href="https://github.com/pass-with-high-score/universal-installer"
+              eventName="click_download_cta"
+              eventParams={{ platform: 'github' }}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-14 items-center justify-center gap-2 rounded-full border-2 border-black/10 bg-white px-10 text-base font-bold text-zinc-900 hover:border-black/20 dark:border-white/15 dark:bg-white/5 dark:text-white transition-all hover:scale-105 active:scale-95"
             >
               <Github size={20} aria-hidden />
               GitHub
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

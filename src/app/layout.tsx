@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { Github, Heart } from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -210,6 +211,23 @@ export default function RootLayout({
         </footer>
         <Analytics />
         <FirebaseAnalytics />
+        
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-VLJ49QZX1P`}
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-VLJ49QZX1P');
+            `,
+          }}
+        />
       </body>
     </html>
   );
