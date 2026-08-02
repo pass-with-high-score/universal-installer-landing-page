@@ -134,6 +134,12 @@ export default function RootLayout({
                 Features
               </Link>
               <Link
+                href="/testing"
+                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
+              >
+                TV beta
+              </Link>
+              <Link
                 href="/privacy"
                 className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 md:inline dark:text-zinc-300 dark:hover:text-white"
               >
@@ -187,6 +193,9 @@ export default function RootLayout({
               </Link>
               <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-white">
                 Terms of Service
+              </Link>
+              <Link href="/testing" className="hover:text-zinc-900 dark:hover:text-white">
+                Android TV beta
               </Link>
               <a
                 href="https://github.com/pass-with-high-score/universal-installer"
