@@ -108,14 +108,14 @@ export default function TestingPage() {
               eventName="tv_beta_hero_cta"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[color:var(--brand)] px-7 text-base font-semibold text-white transition-all hover:scale-105 hover:bg-[color:var(--brand-dark)] active:scale-95"
+              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[color:var(--brand)] px-7 sm:w-auto text-base font-semibold text-white transition-all hover:scale-105 hover:bg-[color:var(--brand-dark)] active:scale-95"
             >
               <FaGooglePlay size={18} aria-hidden />
               Become a tester
             </TrackedLink>
             <Link
               href="/"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border-2 border-black/10 bg-white px-7 text-base font-semibold text-zinc-900 hover:border-black/20 dark:border-white/15 dark:bg-white/5 dark:text-white"
+              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border-2 border-black/10 bg-white px-7 sm:w-auto text-base font-semibold text-zinc-900 hover:border-black/20 dark:border-white/15 dark:bg-white/5 dark:text-white"
             >
               Back to the phone app
               <ArrowRight size={18} aria-hidden />

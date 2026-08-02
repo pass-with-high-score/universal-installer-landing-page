@@ -145,8 +145,26 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <div className="mx-auto flex max-w-6xl gap-10 px-4 pb-16 sm:px-6 sm:pb-20">
-        {/* Sidebar */}
+      {/* Section jumps for phones, where the sidebar is hidden. Scrolls sideways rather than
+          wrapping to three rows and eating the screen. */}
+      <nav className="sticky top-14 z-20 border-y border-black/5 bg-white/85 backdrop-blur lg:hidden dark:border-white/10 dark:bg-black/70">
+        <ul className="mx-auto flex max-w-6xl gap-1.5 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 [&::-webkit-scrollbar]:hidden">
+          {sections.map((s) => (
+            <li key={s.id} className="shrink-0">
+              <a
+                href={`#${s.id}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-black/5 bg-white px-3 py-1.5 text-xs font-medium whitespace-nowrap text-zinc-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300"
+              >
+                <s.icon size={13} aria-hidden />
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div className="mx-auto flex max-w-6xl gap-10 px-4 pt-8 pb-16 sm:px-6 sm:pb-20 lg:pt-0">
+        {/* Sidebar — desktop */}
         <aside className="hidden w-56 shrink-0 lg:block">
           <nav className="sticky top-24">
             <p className="px-3 pb-2 text-xs font-semibold tracking-widest text-zinc-400 dark:text-zinc-500">
@@ -249,8 +267,28 @@ export default function GuidePage() {
               These need Shizuku or root. On the default mode they have no
               effect.
             </p>
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full min-w-[34rem] border-collapse text-left text-sm">
+            {/* Phones: one card per option — a 3-column table never fits. */}
+            <div className="mt-4 flex flex-col gap-3 md:hidden">
+              {options.map((o) => (
+                <div
+                  key={o.name}
+                  className="rounded-2xl border border-black/5 bg-white p-4 dark:border-white/10 dark:bg-white/5"
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <h3 className="font-semibold text-zinc-900 dark:text-white">
+                      {o.name}
+                    </h3>
+                    <span className="text-xs whitespace-nowrap text-zinc-500 dark:text-zinc-400">
+                      {o.on}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm">{o.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 hidden overflow-x-auto md:block">
+              <table className="w-full border-collapse text-left text-sm">
                 <thead>
                   <tr className="border-b border-black/10 dark:border-white/10">
                     <th className="py-2 pr-4 font-semibold text-zinc-900 dark:text-white">
@@ -337,7 +375,7 @@ export default function GuidePage() {
             <div className="flex flex-col gap-5">
               {faqs.map((f) => (
                 <div key={f.q}>
-                  <h3 className="font-semibold text-zinc-900 dark:text-white">
+                  <h3 className="font-semibold text-balance text-zinc-900 dark:text-white">
                     {f.q}
                   </h3>
                   <p className="mt-1.5">{f.a}</p>
@@ -375,8 +413,9 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    // scroll-mt clears the sticky header when jumping from the sidebar.
-    <section id={id} className="scroll-mt-24 pb-10">
+    // Clears whatever is stuck to the top when jumping to a section: header + the mobile
+    // chip nav on small screens, header alone from lg up where that nav is hidden.
+    <section id={id} className="scroll-mt-28 pb-10 lg:scroll-mt-24">
       <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 font-display dark:text-white">
         {title}
       </h2>

@@ -129,7 +129,7 @@ export default function RootLayout({
             <nav className="flex items-center gap-1 text-sm font-medium sm:gap-2">
               <Link
                 href="/#features"
-                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
+                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 sm:inline dark:text-zinc-300 dark:hover:text-white"
               >
                 Features
               </Link>
