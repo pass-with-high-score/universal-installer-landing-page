@@ -125,7 +125,7 @@ const structuredData = {
       applicationCategory: "UtilitiesApplication",
       applicationSubCategory: "Package Manager",
       description:
-        "Professional APK/XAPK installer with expressive animations, installer profiles, and LAN sharing. Supports split APKs, VirusTotal, and Shizuku.",
+        "Professional APK/XAPK installer with expressive animations, installer profiles, and LAN sharing. Supports split APKs, VirusTotal, and silent installs via Shizuku, Root or Dhizuku.",
       url: SITE_URL,
       image: `${SITE_URL}/images/featureGraphic.png`,
       downloadUrl:
@@ -145,12 +145,12 @@ const structuredData = {
         "Installer Profiles",
         "Install APK, APKS, XAPK, APKM",
         "Split APK & OBB support",
-        "Silent install via Shizuku/Root",
+        "Silent install via Shizuku, Root or Dhizuku",
         "LAN Sync & Share",
         "VirusTotal scanning",
       ],
       keywords:
-        "APK installer, XAPK installer, split APK, Shizuku, Android package manager, installer profiles",
+        "APK installer, XAPK installer, split APK, Shizuku, Dhizuku, silent install no root, Android package manager, installer profiles",
     },
   ],
 };
@@ -277,7 +277,7 @@ export default async function Home() {
                             <Check size={18} className="text-green-500" /> Root Support included
                         </li>
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> Shizuku Support
+                            <Check size={18} className="text-green-500" /> Shizuku &amp; Dhizuku Support
                         </li>
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
                             <Check size={18} className="text-green-500" /> All features unlocked
@@ -347,7 +347,7 @@ export default async function Home() {
                             <Check size={18} className="text-green-500" /> LAN Sync & Share
                         </li>
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> Root & Shizuku Support
+                            <Check size={18} className="text-green-500" /> Root, Shizuku & Dhizuku
                         </li>
                     </ul>
                 </div>

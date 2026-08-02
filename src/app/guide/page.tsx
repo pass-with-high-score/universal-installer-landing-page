@@ -15,11 +15,13 @@ import {
 export const metadata: Metadata = {
   title: "Guide",
   description:
-    "How to use Universal Installer: install modes, supported formats, installer profiles, install options, VirusTotal scanning, Android TV, and fixes for the errors people hit most.",
+    "How to use Universal Installer: install modes (Shizuku, Root, Dhizuku), supported formats, installer profiles, install options, VirusTotal scanning, Android TV, and fixes for the errors people hit most.",
   keywords: [
     "Universal Installer guide",
     "how to use Universal Installer",
     "Shizuku install APK",
+    "Dhizuku install APK",
+    "silent install Android no root",
     "install split APK Android",
     "APKS XAPK APKM installer",
     "allow downgrade Android",
@@ -109,11 +111,11 @@ const faqs = [
   },
   {
     q: "I changed the installation source but the app still shows Universal Installer",
-    a: "That setting needs Shizuku or Root. On the default Package Installer it is ignored, and Universal Installer genuinely is the installer at that point. Also note there are two separate fields: the installer an app is recorded under can be changed, but the app that started the install cannot. And it will not make the Play Store treat an app as installed from Play — Play verifies that on its own servers.",
+    a: "That setting needs Shizuku or Root — Dhizuku cannot change it either. On the default Package Installer it is ignored, and Universal Installer genuinely is the installer at that point. Also note there are two separate fields: the installer an app is recorded under can be changed, but the app that started the install cannot. And it will not make the Play Store treat an app as installed from Play — Play verifies that on its own servers.",
   },
   {
     q: "Do I need root?",
-    a: "No. The default mode works on any device with no setup. Shizuku and Root only add silent installs and the extra options above.",
+    a: "No. The default mode works on any device with no setup. Shizuku, Root and Dhizuku only add silent installs and the extra options above. Of the three, Dhizuku is the only one that needs neither root nor ADB — but it has to be device owner, which means setting it up on a device with no accounts signed in.",
   },
 ];
 
@@ -196,8 +198,8 @@ export default function GuidePage() {
               rather than a single confirm button.
             </p>
             <p className="mt-3">
-              It works with no setup at all. Shizuku or root are optional, and
-              only unlock silent installs and the advanced options.
+              It works with no setup at all. Shizuku, root or Dhizuku are optional,
+              and only unlock silent installs and the advanced options.
             </p>
           </Section>
 
@@ -246,6 +248,11 @@ export default function GuidePage() {
                 title="Root"
                 body="Installs silently with no extra app to keep running. Needs a rooted device (Magisk, KernelSU and similar)."
               />
+              <Card
+                icon={ShieldCheck}
+                title="Dhizuku"
+                body="Silent installs with neither root nor ADB, shown as its own switch rather than a fourth mode. Dhizuku runs as device owner, so unlike Shizuku it keeps working after a reboot with nothing to restart. The catch is setup — device owner can only be granted on a device with no accounts signed in — and it supports Allow downgrade only; the other options below need Shizuku or Root."
+              />
             </div>
           </Section>
 
@@ -264,8 +271,8 @@ export default function GuidePage() {
 
           <Section id="options" title="Install options">
             <p>
-              These need Shizuku or root. On the default mode they have no
-              effect.
+              These need Shizuku or Root. Dhizuku supports only Allow downgrade,
+              and on the default mode none of them have any effect.
             </p>
             {/* Phones: one card per option — a 3-column table never fits. */}
             <div className="mt-4 flex flex-col gap-3 md:hidden">
