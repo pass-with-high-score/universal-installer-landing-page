@@ -134,8 +134,14 @@ export default function RootLayout({
                 Features
               </Link>
               <Link
-                href="/testing"
+                href="/guide"
                 className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
+              >
+                Guide
+              </Link>
+              <Link
+                href="/testing"
+                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 sm:inline dark:text-zinc-300 dark:hover:text-white"
               >
                 TV beta
               </Link>
@@ -193,6 +199,9 @@ export default function RootLayout({
               </Link>
               <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-white">
                 Terms of Service
+              </Link>
+              <Link href="/guide" className="hover:text-zinc-900 dark:hover:text-white">
+                Guide
               </Link>
               <Link href="/testing" className="hover:text-zinc-900 dark:hover:text-white">
                 Android TV beta
