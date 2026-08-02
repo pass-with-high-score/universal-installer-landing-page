@@ -6,6 +6,7 @@ import { Github, Heart } from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import FirebaseAnalytics from "@/components/FirebaseAnalytics";
+import MobileNav from "@/components/MobileNav";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -126,10 +127,12 @@ export default function RootLayout({
                 Universal Installer
               </span>
             </Link>
-            <nav className="flex items-center gap-1 text-sm font-medium sm:gap-2">
+            {/* Desktop links. Below md these are not hidden one by one any more — they all
+                live in MobileNav, so nothing becomes unreachable on a phone. */}
+            <nav className="hidden items-center gap-1 text-sm font-medium md:flex md:gap-2">
               <Link
                 href="/#features"
-                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 sm:inline dark:text-zinc-300 dark:hover:text-white"
+                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               >
                 Features
               </Link>
@@ -141,19 +144,19 @@ export default function RootLayout({
               </Link>
               <Link
                 href="/testing"
-                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 sm:inline dark:text-zinc-300 dark:hover:text-white"
+                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               >
                 TV beta
               </Link>
               <Link
                 href="/privacy"
-                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 md:inline dark:text-zinc-300 dark:hover:text-white"
+                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               >
                 Privacy
               </Link>
               <Link
                 href="/terms"
-                className="hidden rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 md:inline dark:text-zinc-300 dark:hover:text-white"
+                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               >
                 Terms
               </Link>
@@ -162,22 +165,23 @@ export default function RootLayout({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Sponsor on GitHub"
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-pink-500/30 bg-pink-50 px-2.5 text-pink-700 hover:border-pink-500/50 hover:bg-pink-100 sm:px-3 dark:border-pink-400/30 dark:bg-pink-500/10 dark:text-pink-300 dark:hover:bg-pink-500/15"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-pink-500/30 bg-pink-50 px-3 text-pink-700 hover:border-pink-500/50 hover:bg-pink-100 dark:border-pink-400/30 dark:bg-pink-500/10 dark:text-pink-300 dark:hover:bg-pink-500/15"
               >
                 <Heart size={16} aria-hidden className="fill-current" />
-                <span className="hidden sm:inline">Sponsor</span>
+                Sponsor
               </a>
               <a
                 href="https://github.com/pass-with-high-score/universal-installer"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View on GitHub"
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-[color:var(--brand)] px-2.5 text-white hover:bg-[color:var(--brand-dark)] sm:ml-1 sm:px-4"
+                className="ml-1 inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-[color:var(--brand)] px-4 text-white hover:bg-[color:var(--brand-dark)]"
               >
                 <Github size={16} aria-hidden />
-                <span className="hidden sm:inline">GitHub</span>
+                GitHub
               </a>
             </nav>
+            <MobileNav />
           </div>
         </header>
         <main className="flex-1">{children}</main>
