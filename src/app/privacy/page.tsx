@@ -4,12 +4,12 @@ import { Mail } from "lucide-react";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Universal Installer handles your data: no collection, no tracking, no ads. Fully open source Android package installer.",
+    "How Universal Installer handles your data. No accounts, no ads. The Google Play build reports anonymous install statistics and crashes; the GitHub build reports nothing at all.",
   alternates: { canonical: "/privacy" },
   openGraph: {
     title: "Privacy Policy — Universal Installer",
     description:
-      "No accounts, no analytics, no tracking. See exactly what the app stores on your device.",
+      "No accounts, no ads. Exactly what the Play build reports, what the GitHub build doesn't, and what stays on your device.",
     url: "/privacy",
     type: "article",
   },
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           Privacy Policy
         </h1>
         <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-          Last updated: April 17, 2026
+          Last updated: August 9, 2026
         </p>
       </header>
 
@@ -36,10 +36,26 @@ export default function PrivacyPage() {
           </h2>
           <p className="mt-2">
             Universal Installer (&quot;the app&quot;) is an Android package manager
-            that installs APK, APKS, XAPK, and APKM files on your device. The app
-            does not collect, sell, or share personal data. It does not include
-            advertising or analytics. You can verify these statements by reviewing
-            the source code.
+            that installs APK, APKS, XAPK, and APKM files on your device. There are
+            no accounts and no advertising, and we never sell or share your personal
+            data.
+          </p>
+          <p className="mt-3">
+            There are two builds of the app, and they differ in exactly one respect:
+          </p>
+          <ul className="mt-3 list-disc space-y-1 pl-6">
+            <li>
+              The <strong>Google Play</strong> build reports anonymous statistics
+              about how installs go, and crash reports, through Google Firebase.
+            </li>
+            <li>
+              The <strong>GitHub</strong> build reports nothing. It contains no
+              analytics or crash-reporting code at all.
+            </li>
+          </ul>
+          <p className="mt-3">
+            Both builds are open source, so you can verify every statement on this
+            page by reading the code.
           </p>
         </section>
 
@@ -48,9 +64,76 @@ export default function PrivacyPage() {
             Data we collect
           </h2>
           <p className="mt-2">
-            None. The app does not create an account, does not transmit usage
-            statistics, and does not report crashes to a remote server. Everything
-            the app needs to operate stays on your device.
+            From the GitHub build: nothing. It creates no account, transmits no
+            usage statistics, and reports no crashes. Everything it needs to operate
+            stays on your device.
+          </p>
+          <p className="mt-3">
+            From the Google Play build, two things are sent to Google Firebase:
+          </p>
+          <ul className="mt-3 list-disc space-y-1 pl-6">
+            <li>
+              <strong>Install statistics.</strong> When an install starts and when
+              it finishes, we record which install method was used (the standard
+              Android installer, Shizuku, root, or Dhizuku), whether it succeeded,
+              failed, or was cancelled, the category of error if it failed, and how
+              many package files were involved.
+            </li>
+            <li>
+              <strong>Crash reports.</strong> When the app crashes or recovers from
+              an error, we receive the stack trace, your device model and Android
+              version, the app version, and the app&apos;s own warning and error log
+              lines leading up to it.
+            </li>
+          </ul>
+          <p className="mt-3">
+            <strong>
+              We never record what you install.
+            </strong>{" "}
+            No package names, app names, file names, or file paths are sent — not in
+            statistics, not in crash reports. What we are trying to learn is which
+            install methods work and where they fail, and that requires none of it.
+          </p>
+          <p className="mt-3">
+            Firebase additionally assigns a random per-installation identifier and
+            collects standard technical information such as device model, operating
+            system version, app version, coarse country, and language. It is not
+            linked to a name, email, or account, because the app has none. Deleting
+            and reinstalling the app resets the identifier.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-zinc-900 dark:text-white">
+            Firebase, and how to avoid it
+          </h2>
+          <p className="mt-2">
+            The Google Play build uses Firebase Analytics and Firebase Crashlytics,
+            which are operated by Google. Data sent to them is handled under{" "}
+            <a
+              href="https://firebase.google.com/support/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[color:var(--brand)] underline underline-offset-2 hover:text-[color:var(--brand-dark)]"
+            >
+              Google&apos;s Firebase privacy and security policy
+            </a>
+            . Because Firebase Analytics is included, the Play build also declares
+            Android&apos;s advertising ID permission. The app shows no ads and runs
+            no ad campaigns.
+          </p>
+          <p className="mt-3">
+            If you would rather send nothing at all, install the build published on{" "}
+            <a
+              href="https://github.com/pass-with-high-score/universal-installer/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[color:var(--brand)] underline underline-offset-2 hover:text-[color:var(--brand-dark)]"
+            >
+              GitHub Releases
+            </a>
+            . It is the same app, built from the same source, with the Firebase
+            libraries left out entirely rather than merely switched off.
           </p>
         </section>
 
@@ -82,9 +165,10 @@ export default function PrivacyPage() {
           </h2>
           <p className="mt-2">
             The app&apos;s core functionality — reading, inspecting, and
-            installing package files — works entirely offline. Network access is
-            used only for the following optional features, and only when you
-            explicitly trigger them:
+            installing package files — works entirely offline. Beyond the Firebase
+            reporting described above, which applies to the Google Play build only,
+            network access is used for the following optional features, and only
+            when you explicitly trigger them:
           </p>
           <ul className="mt-3 list-disc space-y-1 pl-6">
             <li>
@@ -92,6 +176,10 @@ export default function PrivacyPage() {
               API key and ask the app to scan a file, the file&apos;s hash (and,
               if needed, the file itself) is sent to the VirusTotal API using
               your key. This feature is disabled by default.
+            </li>
+            <li>
+              <strong>LAN file sharing.</strong> The built-in file server runs on
+              your local network only, and only while you have it switched on.
             </li>
           </ul>
           <p className="mt-3">
@@ -116,8 +204,12 @@ export default function PrivacyPage() {
             The app requests only the permissions it needs to install and manage
             packages, including permission to read storage (to access APK files
             you select), permission to install other apps, and permission to
-            query installed packages. No permission is used for tracking or
-            advertising.
+            query installed packages. None of them is used for advertising.
+          </p>
+          <p className="mt-3">
+            The Google Play build additionally declares the advertising ID
+            permission, which the Firebase Analytics library brings with it. The
+            GitHub build does not declare it.
           </p>
         </section>
 
@@ -138,8 +230,9 @@ export default function PrivacyPage() {
             Children&apos;s privacy
           </h2>
           <p className="mt-2">
-            The app does not knowingly collect any information from anyone,
-            including children under 13.
+            The app is not directed at children and does not knowingly collect
+            personal information from anyone, including children under 13. Nothing
+            it reports identifies a person.
           </p>
         </section>
 

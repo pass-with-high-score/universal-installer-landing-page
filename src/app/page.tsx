@@ -526,9 +526,10 @@ export default async function Home() {
               Privacy you can actually verify
             </h2>
             <p className="mt-3 text-zinc-600 dark:text-zinc-300">
-              No accounts, no ads, no analytics. Universal Installer is fully open
-              source, so nothing about the app&apos;s behavior has to be taken on
-              trust.
+              No accounts, no ads, and never a record of what you install. The Play
+              build reports anonymous install statistics and crashes; the GitHub
+              build reports nothing at all. Universal Installer is fully open
+              source, so none of this has to be taken on trust.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
@@ -549,7 +550,8 @@ export default async function Home() {
             {[
               "No internet required for core functionality",
               "VirusTotal scanning is optional and uses your own API key",
-              "No ads, no tracking, no data collection",
+              "No ads, no accounts, and package names are never reported",
+              "The GitHub build ships without any analytics or crash reporting",
               "Fully open source — inspect the code yourself",
             ].map((p) => (
               <li
