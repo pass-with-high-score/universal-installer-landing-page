@@ -21,9 +21,20 @@ import {
   Camera,
   Download,
   LayoutGrid,
-  Sparkle,
-  Radio,
+  CheckCircle2,
+  Check,
   Share2,
+  Lock,
+  ArrowDownCircle,
+  Radio,
+  SlidersHorizontal,
+  Flame,
+  KeyRound,
+  Cpu,
+  RefreshCw,
+  QrCode,
+  HardDrive,
+  CheckCheck,
 } from "lucide-react";
 
 type DeviceType = "mobile" | "tv" | "wearos";
@@ -58,8 +69,8 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Đa định dạng",
       },
       features: {
-        en: ["Split APK Bundles", "Auto OBB Extraction", "Expressive Spring UI"],
-        vi: ["Gói Split APK", "Tự trích xuất OBB", "Giao diện Bouncy M3"],
+        en: ["Split APK Bundles (.apks)", "Auto OBB Extraction (.xapk)", "Material 3 Spring UI"],
+        vi: ["Gói Split APK (.apks)", "Tự trích xuất OBB (.xapk)", "Giao diện Bouncy M3"],
       },
     },
     {
@@ -78,8 +89,8 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Đặc quyền hệ thống",
       },
       features: {
-        en: ["No Root Required", "Installer Spoofing", "Auto-Grant Permissions"],
-        vi: ["Không cần Root", "Fake nguồn cài đặt", "Tự cấp toàn bộ quyền"],
+        en: ["Shizuku Wireless ADB", "Play Store Source Spoofing", "Auto-Grant Permissions"],
+        vi: ["Shizuku Wireless ADB", "Fake nguồn Play Store", "Tự cấp toàn bộ quyền"],
       },
     },
     {
@@ -98,8 +109,8 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "An toàn tuyệt đối",
       },
       features: {
-        en: ["70+ Antivirus Scanners", "SHA-256 Hash Lookup", "Strict Warning Mode"],
-        vi: ["70+ Trình diệt virus", "Tra cứu mã băm SHA-256", "Cảnh báo nghiêm ngặt"],
+        en: ["70+ Antivirus Scanners", "SHA-256 Hash Verification", "Strict Warning Mode"],
+        vi: ["70+ Trình diệt virus", "Xác thực mã băm SHA-256", "Cảnh báo nghiêm ngặt"],
       },
     },
     {
@@ -118,8 +129,8 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Tùy biến chuyên sâu",
       },
       features: {
-        en: ["Allow Version Downgrade", "Bypass Low Target SDK", "Multi-User Island"],
-        vi: ["Hạ cấp phiên bản", "Bypass chặn SDK cũ", "Hỗ trợ đa người dùng"],
+        en: ["Allow Version Downgrade", "Bypass Low Target SDK", "Custom Profiles"],
+        vi: ["Cho phép hạ cấp app", "Bypass chặn SDK cũ", "Hồ sơ tùy biến"],
       },
     },
     {
@@ -138,8 +149,8 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Đa thiết bị",
       },
       features: {
-        en: ["High-speed LAN Sync", "QR Code Quick Pairing", "Zero Internet Needed"],
-        vi: ["Truyền Wi-Fi tốc độ cao", "Quét mã QR kết nối", "Không tốn data mạng"],
+        en: ["High-speed LAN Sync", "QR Code Quick Pairing", "Local Wi-Fi Transfer"],
+        vi: ["Truyền LAN tốc độ cao", "Quét mã QR kết nối", "Truyền Wi-Fi nội bộ"],
       },
     },
   ],
@@ -160,7 +171,7 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Chuẩn Android TV",
       },
       features: {
-        en: ["Full Remote Navigation", "High Contrast Focus", "Fast Sideloading"],
+        en: ["Full D-Pad Navigation", "High Contrast Focus", "Fast Sideloading"],
         vi: ["100% Điều khiển Remote", "Viền chọn tương phản cao", "Cài đặt tức thì"],
       },
     },
@@ -180,8 +191,8 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Truyền file Wi-Fi",
       },
       features: {
-        en: ["Wireless Transfer", "Pairing Code Connect", "Instant Auto-Install"],
-        vi: ["Truyền không dây", "Mã PIN kết nối nhanh", "Tự động kích hoạt cài"],
+        en: ["Local Wi-Fi Transfer", "PIN Code Connect", "Instant Auto-Install"],
+        vi: ["Truyền Wi-Fi nội bộ", "Mã PIN kết nối nhanh", "Tự động kích hoạt cài"],
       },
     },
   ],
@@ -202,7 +213,7 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Google Play Store",
       },
       features: {
-        en: ["Direct Play Store App", "Rotary Bezel Input", "Battery Optimized"],
+        en: ["Google Play Store App", "Rotary Crown Control", "Battery Optimized"],
         vi: ["Tải từ Google Play", "Hỗ trợ viền xoay Crown", "Tiết kiệm pin tối đa"],
       },
     },
@@ -222,12 +233,41 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
         vi: "Sideload không dây",
       },
       features: {
-        en: ["Wi-Fi Transfer", "No PC Required", "Standalone Staging"],
+        en: ["Wi-Fi Transfer", "No PC Required", "Standalone Package Staging"],
         vi: ["Chuyển file qua Wi-Fi", "Không cần máy tính", "Xử lý gói độc lập"],
       },
     },
   ],
 };
+
+function getFeatureSvgIcon(text: string) {
+  const lower = text.toLowerCase();
+  if (lower.includes("split") || lower.includes("xapk") || lower.includes("apks") || lower.includes("gói") || lower.includes("obb")) {
+    return <Package size={13} className="text-orange-400 shrink-0" />;
+  }
+  if (lower.includes("shizuku") || lower.includes("root") || lower.includes("adb") || lower.includes("đặc quyền") || lower.includes("silent") || lower.includes("ngầm") || lower.includes("spoof")) {
+    return <Zap size={13} className="text-amber-400 shrink-0" />;
+  }
+  if (lower.includes("virus") || lower.includes("secure") || lower.includes("an toàn") || lower.includes("safe") || lower.includes("mã độc") || lower.includes("sha")) {
+    return <ShieldCheck size={13} className="text-emerald-400 shrink-0" />;
+  }
+  if (lower.includes("lan") || lower.includes("wifi") || lower.includes("wi-fi") || lower.includes("truyền") || lower.includes("qr") || lower.includes("sync") || lower.includes("pin")) {
+    return <Wifi size={13} className="text-blue-400 shrink-0" />;
+  }
+  if (lower.includes("wear") || lower.includes("watch") || lower.includes("đồng hồ") || lower.includes("crown") || lower.includes("play")) {
+    return <Watch size={13} className="text-cyan-400 shrink-0" />;
+  }
+  if (lower.includes("tv") || lower.includes("remote") || lower.includes("d-pad") || lower.includes("10-foot") || lower.includes("điều khiển")) {
+    return <Tv size={13} className="text-purple-400 shrink-0" />;
+  }
+  if (lower.includes("downgrade") || lower.includes("hạ cấp") || lower.includes("sdk") || lower.includes("bypass")) {
+    return <RotateCcw size={13} className="text-rose-400 shrink-0" />;
+  }
+  if (lower.includes("spring") || lower.includes("bouncy") || lower.includes("m3") || lower.includes("ui") || lower.includes("giao diện")) {
+    return <Sparkles size={13} className="text-yellow-400 shrink-0" />;
+  }
+  return <CheckCircle2 size={13} className="text-[color:var(--brand)] shrink-0" />;
+}
 
 export default function ScreenshotStudio() {
   const [device, setDevice] = useState<DeviceType>("mobile");
@@ -316,14 +356,14 @@ export default function ScreenshotStudio() {
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/5 pb-5 dark:border-white/10">
             <div className="flex items-center gap-2.5">
               <div className="h-8 w-8 rounded-xl bg-[color:var(--brand)]/10 text-[color:var(--brand)] flex items-center justify-center font-bold">
-                <Sliders size={18} />
+                <SlidersHorizontal size={18} />
               </div>
               <div>
                 <h2 className="text-base font-bold text-zinc-900 dark:text-white">
                   Screenshot Studio Control Center
                 </h2>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                  Tùy chỉnh bố cục (Layouts), thiết bị và phong cách hiển thị
+                  Tùy chỉnh bố cục (Layouts), biểu tượng SVG và phong cách hiển thị
                 </p>
               </div>
             </div>
@@ -373,7 +413,7 @@ export default function ScreenshotStudio() {
             </div>
           </div>
 
-          {/* Row 1: Layout Selection (Crucial!) */}
+          {/* Row 1: Layout Selection */}
           <div className="mt-5 border-b border-black/5 pb-5 dark:border-white/10">
             <div className="flex items-center justify-between mb-2.5">
               <label className="text-xs font-bold uppercase tracking-wider text-[color:var(--brand)] flex items-center gap-1.5">
@@ -391,7 +431,7 @@ export default function ScreenshotStudio() {
                 }`}
               >
                 <Sparkles size={18} className="mb-1 text-[color:var(--brand)]" />
-                <span className="text-xs font-bold">Thẻ Nổi 3D</span>
+                <span className="text-xs font-bold">Thẻ Nổi SVG</span>
                 <span className="text-[10px] text-zinc-500 dark:text-zinc-400">Floating Cards</span>
               </button>
 
@@ -706,14 +746,14 @@ export default function ScreenshotStudio() {
 
       <div className="text-center text-xs text-zinc-400 space-y-1">
         <p>💡 Tip: Bấm <strong>&ldquo;Xuất ảnh PNG 2K&rdquo;</strong> để lưu trực tiếp file ảnh độ phân giải cao dùng cho Google Play Store Console.</p>
-        <p>Hỗ trợ 5 kiểu bố cục: Thẻ Nổi 3D, Đa Thiết Bị, Tiêu Đề Trên, Tiêu Đề Dưới, Góc Nghiêng 3D.</p>
+        <p>Hỗ trợ đầy đủ SVG Icons và 5 kiểu bố trí: Thẻ Nổi SVG, Đa Thiết Bị, Tiêu Đề Trên, Tiêu Đề Dưới, Góc Nghiêng 3D.</p>
       </div>
     </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-// 1. MOBILE LAYOUT RENDERER (Supports 5 distinct compositions)
+// 1. MOBILE LAYOUT RENDERER
 // ---------------------------------------------------------------------------
 function MobileLayoutRenderer({
   layout,
@@ -749,13 +789,12 @@ function MobileLayoutRenderer({
 
   const isDark = style === "dark_glow" || style === "cyber_purple";
 
-  // LAYOUT 1: FLOATING FEATURE CARDS (Very popular in 2026 store listings)
+  // LAYOUT 1: FLOATING FEATURE CARDS (WITH RICH SVG ICONS)
   if (layout === "floating_badges") {
     return (
       <div
         className={`relative w-[420px] sm:w-[470px] h-[820px] rounded-[3rem] border-4 p-6 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
       >
-        {/* Glow */}
         {style === "dark_glow" && (
           <div className="pointer-events-none absolute -top-10 left-1/4 h-72 w-72 rounded-full bg-[color:var(--brand)]/20 blur-3xl" />
         )}
@@ -763,7 +802,7 @@ function MobileLayoutRenderer({
         {/* Top Header */}
         <div className="relative z-10 text-center pt-2">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
-            <Sparkles size={12} />
+            <Flame size={13} className="text-amber-300" />
             {badge}
           </span>
           <h3 className="mt-3 text-2xl sm:text-3xl font-bold font-display tracking-tight leading-tight">
@@ -774,42 +813,46 @@ function MobileLayoutRenderer({
           </p>
         </div>
 
-        {/* Center Phone + Floating Benefit Cards */}
+        {/* Center Phone + Floating SVG Feature Cards */}
         <div className="relative z-10 mx-auto w-[270px] sm:w-[295px] flex-1 flex flex-col justify-end mt-4">
-          {/* Floating Card Left */}
-          <div className="absolute top-12 -left-14 z-30 flex items-center gap-2 rounded-2xl bg-zinc-900/90 border border-white/20 p-2.5 shadow-2xl backdrop-blur text-white animate-bounce-slow">
-            <div className="h-7 w-7 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center font-bold">
-              <ShieldCheck size={16} />
+          {/* Floating Card Left: VirusTotal Safe */}
+          <div className="absolute top-12 -left-14 z-30 flex items-center gap-2.5 rounded-2xl bg-zinc-900/95 border border-emerald-500/30 p-2.5 shadow-2xl backdrop-blur text-white ring-1 ring-emerald-500/20">
+            <div className="h-8 w-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold shadow-inner">
+              <ShieldCheck size={18} />
             </div>
             <div className="text-left">
-              <div className="text-[10px] font-bold">VirusTotal Safe</div>
+              <div className="text-[11px] font-bold text-emerald-300 flex items-center gap-1">
+                VirusTotal Safe <CheckCheck size={12} />
+              </div>
               <div className="text-[8px] text-zinc-400">0/72 Clean Scanned</div>
             </div>
           </div>
 
-          {/* Floating Card Right */}
-          <div className="absolute top-36 -right-14 z-30 flex items-center gap-2 rounded-2xl bg-zinc-900/90 border border-white/20 p-2.5 shadow-2xl backdrop-blur text-white animate-bounce-slow">
-            <div className="h-7 w-7 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold">
-              <Zap size={16} />
+          {/* Floating Card Right: Shizuku Silent */}
+          <div className="absolute top-36 -right-14 z-30 flex items-center gap-2.5 rounded-2xl bg-zinc-900/95 border border-amber-500/30 p-2.5 shadow-2xl backdrop-blur text-white ring-1 ring-amber-500/20">
+            <div className="h-8 w-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold shadow-inner">
+              <Zap size={18} />
             </div>
             <div className="text-left">
-              <div className="text-[10px] font-bold">Shizuku Silent</div>
-              <div className="text-[8px] text-zinc-400">No Root Required</div>
+              <div className="text-[11px] font-bold text-amber-300 flex items-center gap-1">
+                Shizuku Active <Zap size={10} className="fill-current" />
+              </div>
+              <div className="text-[8px] text-zinc-400">Silent Auto-Install</div>
             </div>
           </div>
 
-          {/* Floating Card Bottom */}
-          <div className="absolute bottom-16 -left-10 z-30 flex items-center gap-2 rounded-2xl bg-zinc-900/90 border border-white/20 p-2.5 shadow-2xl backdrop-blur text-white animate-bounce-slow">
-            <div className="h-7 w-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
-              <Package size={16} />
+          {/* Floating Card Bottom: Split APKs */}
+          <div className="absolute bottom-16 -left-10 z-30 flex items-center gap-2.5 rounded-2xl bg-zinc-900/95 border border-blue-500/30 p-2.5 shadow-2xl backdrop-blur text-white ring-1 ring-blue-500/20">
+            <div className="h-8 w-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shadow-inner">
+              <Package size={18} />
             </div>
             <div className="text-left">
-              <div className="text-[10px] font-bold">Split APKs & OBB</div>
-              <div className="text-[8px] text-zinc-400">Auto Merge & Install</div>
+              <div className="text-[11px] font-bold text-blue-300">.APKS & .XAPK + OBB</div>
+              <div className="text-[8px] text-zinc-400">Auto Split Extraction</div>
             </div>
           </div>
 
-          {/* The Phone Bezel */}
+          {/* Phone Bezel */}
           <div className="relative rounded-t-[2.8rem] border-[7px] border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16]">
             <div className="absolute top-2 left-1/2 -translate-x-1/2 z-30 h-4 w-20 rounded-full bg-zinc-950 flex items-center justify-center shadow-inner">
               <div className="h-2 w-2 rounded-full bg-zinc-800 mr-2" />
@@ -827,7 +870,7 @@ function MobileLayoutRenderer({
     );
   }
 
-  // LAYOUT 2: DUAL DEVICES (Phone + Wear OS Watch Co-working)
+  // LAYOUT 2: DUAL DEVICES
   if (layout === "dual_multi") {
     return (
       <div
@@ -835,7 +878,7 @@ function MobileLayoutRenderer({
       >
         <div className="relative z-10 text-center pt-2">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
-            <Layers size={12} />
+            <Layers size={13} />
             Phone + Watch Ecosystem
           </span>
           <h3 className="mt-3 text-2xl sm:text-3xl font-bold font-display tracking-tight leading-tight">
@@ -846,9 +889,7 @@ function MobileLayoutRenderer({
           </p>
         </div>
 
-        {/* Dual Device Composition */}
         <div className="relative z-10 mx-auto w-full flex-1 flex items-end justify-center mt-4">
-          {/* Main Phone on Right */}
           <div className="relative z-20 w-[240px] sm:w-[260px] translate-x-4 rounded-t-[2.8rem] border-[6px] border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16]">
             {uploadedImage ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -858,13 +899,12 @@ function MobileLayoutRenderer({
             )}
           </div>
 
-          {/* Smartwatch overlapping on Left */}
           <div className="absolute -left-2 bottom-12 z-30 flex flex-col items-center">
             <div className="h-44 w-44 rounded-full border-[8px] border-zinc-700 bg-zinc-950 p-1 shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-hidden">
               <MockWatchUi lang={lang} />
             </div>
-            <span className="mt-2 rounded-full bg-zinc-900/90 border border-white/20 px-2.5 py-0.5 text-[9px] font-bold text-white shadow">
-              Wear OS 5 Ready
+            <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-zinc-900/90 border border-white/20 px-2.5 py-0.5 text-[9px] font-bold text-white shadow">
+              <Watch size={10} className="text-cyan-400" /> Wear OS 5 Ready
             </span>
           </div>
         </div>
@@ -872,13 +912,12 @@ function MobileLayoutRenderer({
     );
   }
 
-  // LAYOUT 3: BOTTOM CARDS (Screen on top, text on bottom)
+  // LAYOUT 3: BOTTOM CARDS
   if (layout === "bottom_cards") {
     return (
       <div
         className={`relative w-[400px] sm:w-[450px] h-[800px] rounded-[3rem] border-4 p-6 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
       >
-        {/* Phone Peeking from Top */}
         <div className="relative z-10 mx-auto w-[280px] sm:w-[310px] -mt-4">
           <div className="relative rounded-b-[2.8rem] border-[7px] border-t-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden h-[450px]">
             {uploadedImage ? (
@@ -890,8 +929,7 @@ function MobileLayoutRenderer({
           </div>
         </div>
 
-        {/* Bottom Headline & Feature Card */}
-        <div className="relative z-20 rounded-3xl border border-black/10 bg-white/80 dark:bg-zinc-900/90 p-5 shadow-2xl backdrop-blur mt-4">
+        <div className="relative z-20 rounded-3xl border border-black/10 bg-white/85 dark:bg-zinc-900/90 p-5 shadow-2xl backdrop-blur mt-4">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
             <Sparkles size={11} />
             {badge}
@@ -904,8 +942,9 @@ function MobileLayoutRenderer({
           </p>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {scene.features[lang].map((f, i) => (
-              <span key={i} className="rounded-lg bg-black/5 dark:bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-zinc-800 dark:text-zinc-200">
-                ✓ {f}
+              <span key={i} className="inline-flex items-center gap-1.5 rounded-full bg-black/5 dark:bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-zinc-800 dark:text-zinc-200">
+                {getFeatureSvgIcon(f)}
+                {f}
               </span>
             ))}
           </div>
@@ -914,7 +953,7 @@ function MobileLayoutRenderer({
     );
   }
 
-  // LAYOUT 4: ISOMETRIC 3D TILT (3D Art Studio Style)
+  // LAYOUT 4: ISOMETRIC 3D TILT
   if (layout === "isometric_tilt") {
     return (
       <div
@@ -931,6 +970,14 @@ function MobileLayoutRenderer({
           <p className={`mt-2 text-xs sm:text-sm font-medium px-4 leading-relaxed ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
             {subtitle}
           </p>
+          <div className="mt-3 flex flex-wrap justify-center gap-1.5">
+            {scene.features[lang].map((f, i) => (
+              <span key={i} className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold ${isDark ? "bg-white/10 text-zinc-200" : "bg-black/5 text-zinc-700"}`}>
+                {getFeatureSvgIcon(f)}
+                {f}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="relative z-10 mx-auto w-[270px] sm:w-[295px] flex-1 flex flex-col justify-end mt-4">
@@ -947,7 +994,7 @@ function MobileLayoutRenderer({
     );
   }
 
-  // DEFAULT LAYOUT: CLASSIC TOP
+  // DEFAULT LAYOUT: CLASSIC TOP (WITH RICH SVG ICONS)
   return (
     <div
       className={`relative w-[400px] sm:w-[450px] h-[800px] rounded-[3rem] border-4 p-7 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
@@ -965,8 +1012,9 @@ function MobileLayoutRenderer({
         </p>
         <div className="mt-3 flex flex-wrap justify-center gap-1.5">
           {scene.features[lang].map((f, i) => (
-            <span key={i} className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${isDark ? "bg-white/10 text-zinc-200" : "bg-black/5 text-zinc-700"}`}>
-              ✓ {f}
+            <span key={i} className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold border ${isDark ? "bg-white/10 text-zinc-200 border-white/10" : "bg-black/5 text-zinc-700 border-black/5"}`}>
+              {getFeatureSvgIcon(f)}
+              {f}
             </span>
           ))}
         </div>
@@ -1021,7 +1069,6 @@ function TvLayoutRenderer({
     }
   };
 
-  // DUAL MULTI LAYOUT FOR TV: TV Screen + Phone sending Wi-Fi sync!
   if (layout === "dual_multi" || layout === "floating_badges") {
     return (
       <div
@@ -1041,16 +1088,15 @@ function TvLayoutRenderer({
 
           <div className="flex flex-col gap-1.5 items-end">
             {scene.features[lang].map((feat, idx) => (
-              <span key={idx} className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium text-zinc-300">
-                ✓ {feat}
+              <span key={idx} className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-medium text-zinc-300">
+                {getFeatureSvgIcon(feat)}
+                {feat}
               </span>
             ))}
           </div>
         </div>
 
-        {/* TV Display with Phone Syncing */}
         <div className="relative z-10 mx-auto w-full max-w-[620px] flex-1 mt-4 flex items-end justify-center">
-          {/* Main TV Screen */}
           <div className="w-[520px] aspect-[16/9] rounded-xl border-[6px] border-zinc-700 bg-zinc-950 shadow-2xl overflow-hidden relative">
             {uploadedImage ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -1060,7 +1106,6 @@ function TvLayoutRenderer({
             )}
           </div>
 
-          {/* Small Phone on the right sending APK */}
           <div className="absolute -right-4 bottom-2 z-30 w-36 rounded-t-2xl border-4 border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16]">
             <MockPhoneUi scene={PRESET_SCENES.mobile[4]} lang={lang} />
           </div>
@@ -1069,7 +1114,6 @@ function TvLayoutRenderer({
     );
   }
 
-  // STANDARD TV LAYOUT
   return (
     <div
       className={`relative w-[720px] sm:w-[800px] h-[540px] rounded-[3rem] border-4 p-8 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
@@ -1088,8 +1132,9 @@ function TvLayoutRenderer({
 
         <div className="flex flex-col gap-1.5 items-end">
           {scene.features[lang].map((feat, idx) => (
-            <span key={idx} className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium text-zinc-300">
-              ✓ {feat}
+            <span key={idx} className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-medium text-zinc-300">
+              {getFeatureSvgIcon(feat)}
+              {feat}
             </span>
           ))}
         </div>
@@ -1178,10 +1223,11 @@ function WearOsLayoutRenderer({
         </div>
       </div>
 
-      <div className="relative z-10 flex justify-center gap-2">
+      <div className="relative z-10 flex flex-wrap justify-center gap-2">
         {scene.features[lang].map((f, i) => (
-          <span key={i} className="rounded-full bg-white/10 px-3 py-0.5 text-[10px] font-medium text-zinc-300">
-            ✓ {f}
+          <span key={i} className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[10px] font-medium text-zinc-300">
+            {getFeatureSvgIcon(f)}
+            {f}
           </span>
         ))}
       </div>
@@ -1199,15 +1245,19 @@ function MockPhoneUi({ scene, lang }: { scene: PresetScene; lang: Lang }) {
     <div className="h-full w-full bg-[#1c1917] p-4 text-white font-sans flex flex-col justify-between pt-8 text-xs">
       <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
         <div className="flex items-center gap-2">
-          <div className="h-6 w-6 rounded-lg bg-[color:var(--brand)] flex items-center justify-center font-bold text-[10px] text-white">
+          <div className="h-6 w-6 rounded-lg bg-[color:var(--brand)] flex items-center justify-center font-bold text-[10px] text-white shadow-sm">
             UI
           </div>
           <div>
             <div className="font-bold text-xs leading-none">Universal Installer</div>
-            <div className="text-[9px] text-zinc-400">v1.8.0 · Shizuku Active</div>
+            <div className="text-[9px] text-zinc-400 flex items-center gap-1 mt-0.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              v1.8.0 · Shizuku Active
+            </div>
           </div>
         </div>
-        <span className="rounded-full bg-green-500/20 px-2 py-0.5 text-[9px] font-semibold text-green-400">
+        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2 py-0.5 text-[9px] font-bold text-emerald-400">
+          <CheckCircle2 size={10} />
           {isEn ? "Ready" : "Sẵn sàng"}
         </span>
       </div>
@@ -1215,49 +1265,54 @@ function MockPhoneUi({ scene, lang }: { scene: PresetScene; lang: Lang }) {
       <div className="my-auto space-y-3">
         <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5 space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-orange-400">
+            <span className="text-[10px] uppercase font-bold text-orange-400 flex items-center gap-1">
+              <Package size={12} />
               {isEn ? "Package Staged" : "Gói đã nạp"}
             </span>
-            <span className="text-[10px] text-zinc-400">64.8 MB</span>
+            <span className="text-[10px] text-zinc-400 font-mono">64.8 MB</span>
           </div>
 
           <div className="flex items-center gap-2.5">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-md">
               <Package size={20} className="text-white" />
             </div>
             <div>
               <div className="font-bold text-xs">Spotify_v8.9.xapk</div>
-              <div className="text-[10px] text-zinc-400">
+              <div className="text-[10px] text-zinc-400 flex items-center gap-1">
+                <HardDrive size={10} />
                 {isEn ? "Split APK (4 splits + OBB)" : "Split APK (4 splits + OBB)"}
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-1.5 pt-1 text-[9px]">
-            <div className="rounded-lg bg-black/40 p-1.5 text-zinc-300">
-              <span className="text-zinc-500">Target:</span> Android 15
+            <div className="rounded-lg bg-black/40 p-1.5 text-zinc-300 flex items-center gap-1">
+              <Cpu size={11} className="text-zinc-500" />
+              <span>Android 15 (SDK 35)</span>
             </div>
-            <div className="rounded-lg bg-black/40 p-1.5 text-zinc-300">
-              <span className="text-zinc-500">Arch:</span> arm64-v8a
+            <div className="rounded-lg bg-black/40 p-1.5 text-zinc-300 flex items-center gap-1">
+              <Layers size={11} className="text-zinc-500" />
+              <span>arm64-v8a</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between rounded-xl bg-green-950/40 border border-green-500/30 px-3 py-2 text-[10px] text-green-300">
+        <div className="flex items-center justify-between rounded-xl bg-emerald-950/40 border border-emerald-500/30 px-3 py-2 text-[10px] text-emerald-300">
           <div className="flex items-center gap-1.5">
-            <ShieldCheck size={14} className="text-green-400" />
+            <ShieldCheck size={14} className="text-emerald-400" />
             <span>VirusTotal: 0/72 Clean</span>
           </div>
-          <span className="font-bold">{isEn ? "Verified" : "Đã xác minh"}</span>
+          <span className="font-bold text-emerald-400">{isEn ? "Verified" : "Đã xác minh"}</span>
         </div>
       </div>
 
       <div className="space-y-1.5 pt-2">
-        <button className="w-full h-9 rounded-xl bg-[color:var(--brand)] font-bold text-white flex items-center justify-center gap-1.5 shadow-lg">
+        <button className="w-full h-9 rounded-xl bg-[color:var(--brand)] font-bold text-white flex items-center justify-center gap-1.5 shadow-lg hover:brightness-110 active:scale-[0.99] transition-all">
           <FolderDown size={14} />
           {isEn ? "Install Package" : "Cài đặt gói"}
         </button>
-        <div className="text-center text-[9px] text-zinc-500">
+        <div className="text-center text-[9px] text-zinc-500 flex items-center justify-center gap-1">
+          <Zap size={10} className="text-amber-400" />
           {isEn ? "Silent Install Profile: Default" : "Hồ sơ cài ngầm: Mặc định"}
         </div>
       </div>
@@ -1274,11 +1329,15 @@ function MockTvUi({ lang }: { lang: Lang }) {
           <div className="h-5 w-5 rounded bg-[color:var(--brand)] flex items-center justify-center font-bold text-[9px] text-white">
             UI
           </div>
-          <span className="font-bold text-xs">Universal Installer TV</span>
+          <span className="font-bold text-xs flex items-center gap-1">
+            <Tv size={12} /> Universal Installer TV
+          </span>
         </div>
         <div className="flex items-center gap-3 text-[10px] text-zinc-400">
-          <span>Wi-Fi: 192.168.1.145</span>
-          <span className="h-2 w-2 rounded-full bg-green-500" />
+          <span className="flex items-center gap-1 font-mono">
+            <Wifi size={11} className="text-blue-400" /> 192.168.1.145
+          </span>
+          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
         </div>
       </div>
 
@@ -1287,7 +1346,7 @@ function MockTvUi({ lang }: { lang: Lang }) {
           <Wifi size={18} className="text-[color:var(--brand)]" />
           <div>
             <div className="font-bold text-xs">{isEn ? "Receive from Phone" : "Nhận từ Điện thoại"}</div>
-            <div className="text-[9px] text-zinc-400">{isEn ? "Pair Code: 8492" : "Mã PIN: 8492"}</div>
+            <div className="text-[9px] text-zinc-400 font-mono">{isEn ? "PIN: 8492" : "Mã PIN: 8492"}</div>
           </div>
         </div>
 
@@ -1295,7 +1354,7 @@ function MockTvUi({ lang }: { lang: Lang }) {
           <Package size={18} className="text-zinc-400" />
           <div>
             <div className="font-bold text-xs">{isEn ? "Local APKs" : "APK Đã lưu"}</div>
-            <div className="text-[9px] text-zinc-400">{isEn ? "4 packages found" : "4 file sẵn sàng"}</div>
+            <div className="text-[9px] text-zinc-400">{isEn ? "4 packages ready" : "4 file sẵn sàng"}</div>
           </div>
         </div>
 
@@ -1303,14 +1362,18 @@ function MockTvUi({ lang }: { lang: Lang }) {
           <ShieldCheck size={18} className="text-zinc-400" />
           <div>
             <div className="font-bold text-xs">{isEn ? "Diagnostics" : "Chẩn đoán"}</div>
-            <div className="text-[9px] text-zinc-400">Shizuku Active</div>
+            <div className="text-[9px] text-emerald-400 flex items-center gap-1">
+              <CheckCircle2 size={10} /> Shizuku Active
+            </div>
           </div>
         </div>
       </div>
 
       <div className="text-[9px] text-zinc-500 flex justify-between">
-        <span>{isEn ? "Use Remote D-Pad to Select" : "Dùng D-Pad trên Remote để chọn"}</span>
-        <span>{isEn ? "Press [OK] to Confirm" : "Bấm [OK] để xác nhận"}</span>
+        <span className="flex items-center gap-1">
+          <Radio size={10} /> {isEn ? "Remote D-Pad Navigation" : "Điều khiển bằng Remote"}
+        </span>
+        <span className="font-mono">{isEn ? "Press [OK] to Confirm" : "Bấm [OK] để xác nhận"}</span>
       </div>
     </div>
   );
@@ -1320,20 +1383,21 @@ function MockWatchUi({ lang }: { lang: Lang }) {
   const isEn = lang === "en";
   return (
     <div className="h-full w-full bg-black p-4 text-white font-sans flex flex-col items-center justify-between text-center text-[10px] pt-3 pb-3">
-      <div className="text-[9px] text-orange-400 font-bold uppercase tracking-wider">
-        Universal Installer
+      <div className="text-[9px] text-orange-400 font-bold uppercase tracking-wider flex items-center gap-1">
+        <Watch size={10} /> Universal Installer
       </div>
 
       <div className="space-y-1">
-        <div className="h-9 w-9 mx-auto rounded-full bg-[color:var(--brand)]/20 border border-[color:var(--brand)] flex items-center justify-center">
+        <div className="h-9 w-9 mx-auto rounded-full bg-[color:var(--brand)]/20 border border-[color:var(--brand)] flex items-center justify-center shadow-md">
           <Package size={16} className="text-[color:var(--brand)]" />
         </div>
         <div className="font-bold text-[11px]">Spotify Wear</div>
-        <div className="text-[8px] text-zinc-400">{isEn ? "12.4 MB · Ready to Install" : "12.4 MB · Sẵn sàng cài"}</div>
+        <div className="text-[8px] text-zinc-400 font-mono">{isEn ? "12.4 MB · Ready" : "12.4 MB · Sẵn sàng"}</div>
       </div>
 
-      <button className="w-24 h-6 rounded-full bg-[color:var(--brand)] font-bold text-[9px] text-white flex items-center justify-center shadow">
-        {isEn ? "Install Now" : "Cài đặt ngay"}
+      <button className="w-24 h-6 rounded-full bg-[color:var(--brand)] font-bold text-[9px] text-white flex items-center justify-center gap-1 shadow hover:brightness-110">
+        <FolderDown size={10} />
+        {isEn ? "Install" : "Cài đặt"}
       </button>
     </div>
   );
