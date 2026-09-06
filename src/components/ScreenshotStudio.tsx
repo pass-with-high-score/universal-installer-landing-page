@@ -20,13 +20,15 @@ import {
   Palette,
   Camera,
   Download,
-  Languages,
-  CheckCircle2,
-  Check,
+  LayoutGrid,
+  Sparkle,
+  Radio,
+  Share2,
 } from "lucide-react";
 
 type DeviceType = "mobile" | "tv" | "wearos";
 type TemplateStyle = "gradient" | "dark_glow" | "minimal" | "cyber_purple";
+type LayoutMode = "classic_top" | "floating_badges" | "dual_multi" | "bottom_cards" | "isometric_tilt";
 type Lang = "en" | "vi";
 
 interface PresetScene {
@@ -230,9 +232,9 @@ const PRESET_SCENES: Record<DeviceType, PresetScene[]> = {
 export default function ScreenshotStudio() {
   const [device, setDevice] = useState<DeviceType>("mobile");
   const [style, setStyle] = useState<TemplateStyle>("gradient");
+  const [layout, setLayout] = useState<LayoutMode>("floating_badges");
   const [lang, setLang] = useState<Lang>("vi");
   const [activeSceneIdx, setActiveSceneIdx] = useState(0);
-  const [is3DMode, setIs3DMode] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
 
   const currentPresets = PRESET_SCENES[device];
@@ -291,20 +293,20 @@ export default function ScreenshotStudio() {
     setIsExporting(true);
     try {
       const dataUrl = await toPng(captureRef.current, {
-        pixelRatio: 2.5, // High resolution output
+        pixelRatio: 2.5,
         cacheBust: true,
       });
       const link = document.createElement("a");
-      link.download = `universal-installer-${device}-${style}-slide${activeSceneIdx + 1}.png`;
+      link.download = `universal-installer-${device}-${layout}-${style}-slide${activeSceneIdx + 1}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
       console.error("Export error:", err);
-      alert("Không thể xuất ảnh tự động. Bạn có thể chuyển sang chế độ 'Presentation View' và dùng phím chụp màn hình để lưu ảnh nét nhất.");
+      alert("Xuất ảnh thất bại. Bạn có thể bật Chế độ chụp nét và dùng phím chụp màn hình.");
     } finally {
       setIsExporting(false);
     }
-  }, [device, style, activeSceneIdx]);
+  }, [device, layout, style, activeSceneIdx]);
 
   return (
     <div className="space-y-8">
@@ -321,7 +323,7 @@ export default function ScreenshotStudio() {
                   Screenshot Studio Control Center
                 </h2>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                  Tùy chỉnh mockup Google Play Store chuẩn xuất bản
+                  Tùy chỉnh bố cục (Layouts), thiết bị và phong cách hiển thị
                 </p>
               </div>
             </div>
@@ -351,19 +353,6 @@ export default function ScreenshotStudio() {
                 </button>
               </div>
 
-              {/* 3D Tilt Toggle */}
-              <button
-                onClick={() => setIs3DMode(!is3DMode)}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold border transition-all ${
-                  is3DMode
-                    ? "border-purple-500/30 bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-300"
-                    : "border-black/10 bg-zinc-100 text-zinc-600 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-400"
-                }`}
-              >
-                <Layers size={13} />
-                {is3DMode ? "3D Tilt: Bật" : "3D Tilt: Tắt (Phẳng)"}
-              </button>
-
               {/* Download PNG Button */}
               <button
                 onClick={handleExportPng}
@@ -384,108 +373,185 @@ export default function ScreenshotStudio() {
             </div>
           </div>
 
+          {/* Row 1: Layout Selection (Crucial!) */}
+          <div className="mt-5 border-b border-black/5 pb-5 dark:border-white/10">
+            <div className="flex items-center justify-between mb-2.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[color:var(--brand)] flex items-center gap-1.5">
+                <LayoutGrid size={14} />
+                Chọn Kiểu Bố Trí Bố Cục (Layout Arrangement):
+              </label>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              <button
+                onClick={() => setLayout("floating_badges")}
+                className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
+                  layout === "floating_badges"
+                    ? "border-2 border-[color:var(--brand)] bg-orange-50/70 text-[color:var(--brand-dark)] font-bold shadow-sm dark:bg-orange-950/40 dark:text-orange-200"
+                    : "border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
+                }`}
+              >
+                <Sparkles size={18} className="mb-1 text-[color:var(--brand)]" />
+                <span className="text-xs font-bold">Thẻ Nổi 3D</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400">Floating Cards</span>
+              </button>
+
+              <button
+                onClick={() => setLayout("dual_multi")}
+                className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
+                  layout === "dual_multi"
+                    ? "border-2 border-[color:var(--brand)] bg-orange-50/70 text-[color:var(--brand-dark)] font-bold shadow-sm dark:bg-orange-950/40 dark:text-orange-200"
+                    : "border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
+                }`}
+              >
+                <Layers size={18} className="mb-1 text-[color:var(--brand)]" />
+                <span className="text-xs font-bold">Đa Thiết Bị</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400">Dual Devices</span>
+              </button>
+
+              <button
+                onClick={() => setLayout("classic_top")}
+                className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
+                  layout === "classic_top"
+                    ? "border-2 border-[color:var(--brand)] bg-orange-50/70 text-[color:var(--brand-dark)] font-bold shadow-sm dark:bg-orange-950/40 dark:text-orange-200"
+                    : "border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
+                }`}
+              >
+                <Smartphone size={18} className="mb-1 text-[color:var(--brand)]" />
+                <span className="text-xs font-bold">Tiêu Đề Trên</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400">Classic Top</span>
+              </button>
+
+              <button
+                onClick={() => setLayout("bottom_cards")}
+                className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
+                  layout === "bottom_cards"
+                    ? "border-2 border-[color:var(--brand)] bg-orange-50/70 text-[color:var(--brand-dark)] font-bold shadow-sm dark:bg-orange-950/40 dark:text-orange-200"
+                    : "border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
+                }`}
+              >
+                <FolderDown size={18} className="mb-1 text-[color:var(--brand)]" />
+                <span className="text-xs font-bold">Tiêu Đề Dưới</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400">Bottom Focus</span>
+              </button>
+
+              <button
+                onClick={() => setLayout("isometric_tilt")}
+                className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
+                  layout === "isometric_tilt"
+                    ? "border-2 border-[color:var(--brand)] bg-orange-50/70 text-[color:var(--brand-dark)] font-bold shadow-sm dark:bg-orange-950/40 dark:text-orange-200"
+                    : "border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
+                }`}
+              >
+                <Zap size={18} className="mb-1 text-[color:var(--brand)]" />
+                <span className="text-xs font-bold">Góc Nghiêng 3D</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400">Isometric Tilt</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Row 2: Target Device & Color Theme & Custom Upload */}
           <div className="mt-5 grid gap-6 md:grid-cols-3">
-            {/* 1. Device Picker */}
+            {/* 1. Target Device */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                1. Thiết bị mục tiêu
+                Thiết bị
               </label>
-              <div className="mt-2.5 flex gap-2">
+              <div className="mt-2 flex gap-1.5">
                 <button
                   onClick={() => handleDeviceChange("mobile")}
-                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2.5 px-2 text-xs font-semibold transition-all ${
+                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2 px-2 text-xs font-semibold transition-all ${
                     device === "mobile"
                       ? "bg-[color:var(--brand)] text-white shadow-sm"
                       : "border border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
-                  <Smartphone size={15} />
-                  Phone (9:16)
+                  <Smartphone size={14} />
+                  Phone
                 </button>
                 <button
                   onClick={() => handleDeviceChange("tv")}
-                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2.5 px-2 text-xs font-semibold transition-all ${
+                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2 px-2 text-xs font-semibold transition-all ${
                     device === "tv"
                       ? "bg-[color:var(--brand)] text-white shadow-sm"
                       : "border border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
-                  <Tv size={15} />
-                  Android TV (16:9)
+                  <Tv size={14} />
+                  TV
                 </button>
                 <button
                   onClick={() => handleDeviceChange("wearos")}
-                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2.5 px-2 text-xs font-semibold transition-all ${
+                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2 px-2 text-xs font-semibold transition-all ${
                     device === "wearos"
                       ? "bg-[color:var(--brand)] text-white shadow-sm"
                       : "border border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
-                  <Watch size={15} />
-                  Wear OS (1:1)
+                  <Watch size={14} />
+                  Wear OS
                 </button>
               </div>
             </div>
 
-            {/* 2. Visual Style Presets */}
+            {/* 2. Color Theme */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                2. Phong cách màu sắc
+                Phong cách màu
               </label>
-              <div className="mt-2.5 grid grid-cols-2 gap-2">
+              <div className="mt-2 grid grid-cols-2 gap-1.5">
                 <button
                   onClick={() => setStyle("gradient")}
-                  className={`flex items-center justify-center gap-1.5 rounded-xl py-2 px-2 text-xs font-semibold transition-all ${
+                  className={`flex items-center justify-center gap-1.5 rounded-xl py-1.5 px-2 text-xs font-semibold transition-all ${
                     style === "gradient"
                       ? "border-2 border-[color:var(--brand)] bg-orange-50 text-orange-950 font-bold dark:bg-orange-950/40 dark:text-orange-200"
                       : "border border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
-                  <Palette size={13} className="text-orange-600" />
-                  Brand Gradient
+                  <Palette size={12} className="text-orange-600" />
+                  Gradient Cam
                 </button>
                 <button
                   onClick={() => setStyle("dark_glow")}
-                  className={`flex items-center justify-center gap-1.5 rounded-xl py-2 px-2 text-xs font-semibold transition-all ${
+                  className={`flex items-center justify-center gap-1.5 rounded-xl py-1.5 px-2 text-xs font-semibold transition-all ${
                     style === "dark_glow"
                       ? "border-2 border-cyan-500 bg-zinc-950 text-cyan-400 font-bold shadow-sm"
                       : "border border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
-                  <Sparkles size={13} className="text-cyan-400" />
+                  <Sparkles size={12} className="text-cyan-400" />
                   Dark AMOLED
                 </button>
                 <button
                   onClick={() => setStyle("cyber_purple")}
-                  className={`flex items-center justify-center gap-1.5 rounded-xl py-2 px-2 text-xs font-semibold transition-all ${
+                  className={`flex items-center justify-center gap-1.5 rounded-xl py-1.5 px-2 text-xs font-semibold transition-all ${
                     style === "cyber_purple"
                       ? "border-2 border-purple-500 bg-purple-950 text-purple-200 font-bold shadow-sm"
                       : "border border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
-                  <Zap size={13} className="text-purple-400" />
+                  <Zap size={12} className="text-purple-400" />
                   Deep Space
                 </button>
                 <button
                   onClick={() => setStyle("minimal")}
-                  className={`flex items-center justify-center gap-1.5 rounded-xl py-2 px-2 text-xs font-semibold transition-all ${
+                  className={`flex items-center justify-center gap-1.5 rounded-xl py-1.5 px-2 text-xs font-semibold transition-all ${
                     style === "minimal"
                       ? "border-2 border-zinc-900 bg-zinc-100 text-zinc-900 font-bold dark:border-white dark:bg-zinc-800 dark:text-white"
                       : "border border-black/10 bg-zinc-50 text-zinc-700 hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
-                  <Layers size={13} />
+                  <Layers size={12} />
                   Clean Studio
                 </button>
               </div>
             </div>
 
-            {/* 3. Screen Mockup / Custom Upload */}
+            {/* 3. Custom Upload */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                3. Ảnh chụp màn hình thật
+                Ảnh chụp app thật
               </label>
-              <div className="mt-2.5 flex items-center gap-2">
+              <div className="mt-2 flex items-center gap-2">
                 <input
                   type="file"
                   accept="image/*"
@@ -495,16 +561,16 @@ export default function ScreenshotStudio() {
                 />
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 py-2.5 px-3 text-xs font-medium text-zinc-700 hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 py-2 px-3 text-xs font-medium text-zinc-700 hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
                 >
                   <Upload size={14} />
-                  {uploadedImage ? "Thay ảnh khác" : "Tải ảnh chụp của bạn lên"}
+                  {uploadedImage ? "Thay ảnh khác" : "Tải ảnh thật lên"}
                 </button>
                 {uploadedImage && (
                   <button
                     onClick={handleResetImage}
                     title="Khôi phục giao diện mẫu"
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white text-zinc-500 hover:bg-red-50 hover:text-red-600 dark:border-white/10 dark:bg-zinc-800"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/10 bg-white text-zinc-500 hover:bg-red-50 hover:text-red-600 dark:border-white/10 dark:bg-zinc-800"
                   >
                     <RotateCcw size={14} />
                   </button>
@@ -513,10 +579,10 @@ export default function ScreenshotStudio() {
             </div>
           </div>
 
-          {/* Quick Scene Presets */}
-          <div className="mt-6 border-t border-black/5 pt-4 dark:border-white/10">
+          {/* Preset Slide Selector */}
+          <div className="mt-5 border-t border-black/5 pt-4 dark:border-white/10">
             <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-              Chọn Slide mẫu ({currentPresets.length} kịch bản chuẩn Play Store):
+              Chọn nhanh Kịch bản Slide ({currentPresets.length} kịch bản):
             </span>
             <div className="mt-2 flex flex-wrap gap-2">
               {currentPresets.map((scene, idx) => (
@@ -539,7 +605,7 @@ export default function ScreenshotStudio() {
           <div className="mt-5 grid gap-4 sm:grid-cols-3 border-t border-black/5 pt-4 dark:border-white/10">
             <div>
               <label className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                Badge / Nhãn nổi bật
+                Nhãn nổi bật (Badge)
               </label>
               <input
                 type="text"
@@ -598,7 +664,8 @@ export default function ScreenshotStudio() {
       <div className="flex justify-center overflow-x-auto py-4">
         <div ref={captureRef} className="inline-block">
           {device === "mobile" && (
-            <MobileTemplate
+            <MobileLayoutRenderer
+              layout={layout}
               style={style}
               title={customTitle}
               subtitle={customSubtitle}
@@ -606,12 +673,12 @@ export default function ScreenshotStudio() {
               uploadedImage={uploadedImage}
               scene={activeScene}
               lang={lang}
-              is3DMode={is3DMode}
             />
           )}
 
           {device === "tv" && (
-            <TvTemplate
+            <TvLayoutRenderer
+              layout={layout}
               style={style}
               title={customTitle}
               subtitle={customSubtitle}
@@ -619,12 +686,12 @@ export default function ScreenshotStudio() {
               uploadedImage={uploadedImage}
               scene={activeScene}
               lang={lang}
-              is3DMode={is3DMode}
             />
           )}
 
           {device === "wearos" && (
-            <WearOsTemplate
+            <WearOsLayoutRenderer
+              layout={layout}
               style={style}
               title={customTitle}
               subtitle={customSubtitle}
@@ -639,16 +706,17 @@ export default function ScreenshotStudio() {
 
       <div className="text-center text-xs text-zinc-400 space-y-1">
         <p>💡 Tip: Bấm <strong>&ldquo;Xuất ảnh PNG 2K&rdquo;</strong> để lưu trực tiếp file ảnh độ phân giải cao dùng cho Google Play Store Console.</p>
-        <p>Tỉ lệ: Mobile (9:16 - 1080x1920), Android TV (16:9 - 1920x1080), Wear OS (1:1 - 1080x1080).</p>
+        <p>Hỗ trợ 5 kiểu bố cục: Thẻ Nổi 3D, Đa Thiết Bị, Tiêu Đề Trên, Tiêu Đề Dưới, Góc Nghiêng 3D.</p>
       </div>
     </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-// 1. MOBILE PHONE TEMPLATE (Portrait 9:16 Style)
+// 1. MOBILE LAYOUT RENDERER (Supports 5 distinct compositions)
 // ---------------------------------------------------------------------------
-function MobileTemplate({
+function MobileLayoutRenderer({
+  layout,
   style,
   title,
   subtitle,
@@ -656,8 +724,8 @@ function MobileTemplate({
   uploadedImage,
   scene,
   lang,
-  is3DMode,
 }: {
+  layout: LayoutMode;
   style: TemplateStyle;
   title: string;
   subtitle: string;
@@ -665,7 +733,6 @@ function MobileTemplate({
   uploadedImage: string | null;
   scene: PresetScene;
   lang: Lang;
-  is3DMode: boolean;
 }) {
   const getContainerStyle = () => {
     switch (style) {
@@ -680,94 +747,236 @@ function MobileTemplate({
     }
   };
 
+  const isDark = style === "dark_glow" || style === "cyber_purple";
+
+  // LAYOUT 1: FLOATING FEATURE CARDS (Very popular in 2026 store listings)
+  if (layout === "floating_badges") {
+    return (
+      <div
+        className={`relative w-[420px] sm:w-[470px] h-[820px] rounded-[3rem] border-4 p-6 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
+      >
+        {/* Glow */}
+        {style === "dark_glow" && (
+          <div className="pointer-events-none absolute -top-10 left-1/4 h-72 w-72 rounded-full bg-[color:var(--brand)]/20 blur-3xl" />
+        )}
+
+        {/* Top Header */}
+        <div className="relative z-10 text-center pt-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
+            <Sparkles size={12} />
+            {badge}
+          </span>
+          <h3 className="mt-3 text-2xl sm:text-3xl font-bold font-display tracking-tight leading-tight">
+            {title}
+          </h3>
+          <p className={`mt-2 text-xs sm:text-sm font-medium px-4 leading-relaxed ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
+            {subtitle}
+          </p>
+        </div>
+
+        {/* Center Phone + Floating Benefit Cards */}
+        <div className="relative z-10 mx-auto w-[270px] sm:w-[295px] flex-1 flex flex-col justify-end mt-4">
+          {/* Floating Card Left */}
+          <div className="absolute top-12 -left-14 z-30 flex items-center gap-2 rounded-2xl bg-zinc-900/90 border border-white/20 p-2.5 shadow-2xl backdrop-blur text-white animate-bounce-slow">
+            <div className="h-7 w-7 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center font-bold">
+              <ShieldCheck size={16} />
+            </div>
+            <div className="text-left">
+              <div className="text-[10px] font-bold">VirusTotal Safe</div>
+              <div className="text-[8px] text-zinc-400">0/72 Clean Scanned</div>
+            </div>
+          </div>
+
+          {/* Floating Card Right */}
+          <div className="absolute top-36 -right-14 z-30 flex items-center gap-2 rounded-2xl bg-zinc-900/90 border border-white/20 p-2.5 shadow-2xl backdrop-blur text-white animate-bounce-slow">
+            <div className="h-7 w-7 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold">
+              <Zap size={16} />
+            </div>
+            <div className="text-left">
+              <div className="text-[10px] font-bold">Shizuku Silent</div>
+              <div className="text-[8px] text-zinc-400">No Root Required</div>
+            </div>
+          </div>
+
+          {/* Floating Card Bottom */}
+          <div className="absolute bottom-16 -left-10 z-30 flex items-center gap-2 rounded-2xl bg-zinc-900/90 border border-white/20 p-2.5 shadow-2xl backdrop-blur text-white animate-bounce-slow">
+            <div className="h-7 w-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
+              <Package size={16} />
+            </div>
+            <div className="text-left">
+              <div className="text-[10px] font-bold">Split APKs & OBB</div>
+              <div className="text-[8px] text-zinc-400">Auto Merge & Install</div>
+            </div>
+          </div>
+
+          {/* The Phone Bezel */}
+          <div className="relative rounded-t-[2.8rem] border-[7px] border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16]">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 z-30 h-4 w-20 rounded-full bg-zinc-950 flex items-center justify-center shadow-inner">
+              <div className="h-2 w-2 rounded-full bg-zinc-800 mr-2" />
+              <div className="h-1.5 w-1.5 rounded-full bg-blue-900/70" />
+            </div>
+            {uploadedImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={uploadedImage} alt="Screen" className="h-full w-full object-cover object-top" />
+            ) : (
+              <MockPhoneUi scene={scene} lang={lang} />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // LAYOUT 2: DUAL DEVICES (Phone + Wear OS Watch Co-working)
+  if (layout === "dual_multi") {
+    return (
+      <div
+        className={`relative w-[420px] sm:w-[470px] h-[820px] rounded-[3rem] border-4 p-6 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
+      >
+        <div className="relative z-10 text-center pt-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
+            <Layers size={12} />
+            Phone + Watch Ecosystem
+          </span>
+          <h3 className="mt-3 text-2xl sm:text-3xl font-bold font-display tracking-tight leading-tight">
+            {title}
+          </h3>
+          <p className={`mt-2 text-xs sm:text-sm font-medium px-4 leading-relaxed ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
+            {subtitle}
+          </p>
+        </div>
+
+        {/* Dual Device Composition */}
+        <div className="relative z-10 mx-auto w-full flex-1 flex items-end justify-center mt-4">
+          {/* Main Phone on Right */}
+          <div className="relative z-20 w-[240px] sm:w-[260px] translate-x-4 rounded-t-[2.8rem] border-[6px] border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16]">
+            {uploadedImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={uploadedImage} alt="Screen" className="h-full w-full object-cover object-top" />
+            ) : (
+              <MockPhoneUi scene={scene} lang={lang} />
+            )}
+          </div>
+
+          {/* Smartwatch overlapping on Left */}
+          <div className="absolute -left-2 bottom-12 z-30 flex flex-col items-center">
+            <div className="h-44 w-44 rounded-full border-[8px] border-zinc-700 bg-zinc-950 p-1 shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-hidden">
+              <MockWatchUi lang={lang} />
+            </div>
+            <span className="mt-2 rounded-full bg-zinc-900/90 border border-white/20 px-2.5 py-0.5 text-[9px] font-bold text-white shadow">
+              Wear OS 5 Ready
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // LAYOUT 3: BOTTOM CARDS (Screen on top, text on bottom)
+  if (layout === "bottom_cards") {
+    return (
+      <div
+        className={`relative w-[400px] sm:w-[450px] h-[800px] rounded-[3rem] border-4 p-6 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
+      >
+        {/* Phone Peeking from Top */}
+        <div className="relative z-10 mx-auto w-[280px] sm:w-[310px] -mt-4">
+          <div className="relative rounded-b-[2.8rem] border-[7px] border-t-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden h-[450px]">
+            {uploadedImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={uploadedImage} alt="Screen" className="h-full w-full object-cover object-top" />
+            ) : (
+              <MockPhoneUi scene={scene} lang={lang} />
+            )}
+          </div>
+        </div>
+
+        {/* Bottom Headline & Feature Card */}
+        <div className="relative z-20 rounded-3xl border border-black/10 bg-white/80 dark:bg-zinc-900/90 p-5 shadow-2xl backdrop-blur mt-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+            <Sparkles size={11} />
+            {badge}
+          </span>
+          <h3 className="mt-2 text-xl sm:text-2xl font-bold font-display tracking-tight leading-tight text-zinc-900 dark:text-white">
+            {title}
+          </h3>
+          <p className="mt-1.5 text-xs text-zinc-600 dark:text-zinc-300">
+            {subtitle}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {scene.features[lang].map((f, i) => (
+              <span key={i} className="rounded-lg bg-black/5 dark:bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-zinc-800 dark:text-zinc-200">
+                ✓ {f}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // LAYOUT 4: ISOMETRIC 3D TILT (3D Art Studio Style)
+  if (layout === "isometric_tilt") {
+    return (
+      <div
+        className={`relative w-[420px] sm:w-[470px] h-[820px] rounded-[3rem] border-4 p-7 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
+      >
+        <div className="relative z-10 text-center pt-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
+            <Zap size={12} />
+            {badge}
+          </span>
+          <h3 className="mt-3 text-2xl sm:text-3xl font-bold font-display tracking-tight leading-tight">
+            {title}
+          </h3>
+          <p className={`mt-2 text-xs sm:text-sm font-medium px-4 leading-relaxed ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
+            {subtitle}
+          </p>
+        </div>
+
+        <div className="relative z-10 mx-auto w-[270px] sm:w-[295px] flex-1 flex flex-col justify-end mt-4">
+          <div className="relative rounded-t-[2.8rem] border-[7px] border-b-0 border-zinc-800 bg-zinc-900 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden aspect-[9/16] rotate-[-5deg] scale-[1.05] translate-x-2">
+            {uploadedImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={uploadedImage} alt="Screen" className="h-full w-full object-cover object-top" />
+            ) : (
+              <MockPhoneUi scene={scene} lang={lang} />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // DEFAULT LAYOUT: CLASSIC TOP
   return (
     <div
       className={`relative w-[400px] sm:w-[450px] h-[800px] rounded-[3rem] border-4 p-7 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
     >
-      {/* Background Decorative Glow */}
-      {style === "dark_glow" && (
-        <>
-          <div className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-[color:var(--brand)]/25 blur-3xl" />
-          <div className="pointer-events-none absolute bottom-10 right-0 h-64 w-64 rounded-full bg-cyan-500/15 blur-3xl" />
-        </>
-      )}
-      {style === "cyber_purple" && (
-        <>
-          <div className="pointer-events-none absolute -top-10 -right-10 h-72 w-72 rounded-full bg-purple-600/25 blur-3xl" />
-          <div className="pointer-events-none absolute bottom-10 -left-10 h-64 w-64 rounded-full bg-pink-500/20 blur-3xl" />
-        </>
-      )}
-      {style === "gradient" && (
-        <div className="pointer-events-none absolute -top-10 right-0 h-72 w-72 rounded-full bg-orange-300/35 blur-3xl" />
-      )}
-
-      {/* Header Info */}
       <div className="relative z-10 text-center pt-2">
-        <span
-          className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider ${
-            style === "dark_glow"
-              ? "bg-zinc-800/90 text-orange-400 border border-orange-500/30 shadow-sm"
-              : style === "cyber_purple"
-              ? "bg-purple-900/60 text-purple-300 border border-purple-500/40 shadow-sm"
-              : style === "gradient"
-              ? "bg-[color:var(--brand)] text-white shadow-sm"
-              : "bg-zinc-900 text-white"
-          }`}
-        >
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
           <Sparkles size={12} />
           {badge}
         </span>
-
         <h3 className="mt-3.5 text-2xl sm:text-3xl font-bold font-display tracking-tight leading-tight">
           {title}
         </h3>
-
-        <p
-          className={`mt-2 text-xs sm:text-sm font-medium px-2 leading-relaxed ${
-            style === "dark_glow" || style === "cyber_purple" ? "text-zinc-300" : "text-zinc-600"
-          }`}
-        >
+        <p className={`mt-2 text-xs sm:text-sm font-medium px-2 leading-relaxed ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
           {subtitle}
         </p>
-
-        {/* Highlight Feature Pills */}
         <div className="mt-3 flex flex-wrap justify-center gap-1.5">
           {scene.features[lang].map((f, i) => (
-            <span
-              key={i}
-              className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${
-                style === "dark_glow" || style === "cyber_purple"
-                  ? "bg-white/10 text-zinc-200 border border-white/10"
-                  : "bg-black/5 text-zinc-700 border border-black/5"
-              }`}
-            >
+            <span key={i} className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${isDark ? "bg-white/10 text-zinc-200" : "bg-black/5 text-zinc-700"}`}>
               ✓ {f}
             </span>
           ))}
         </div>
       </div>
 
-      {/* Realistic Mobile Device Frame */}
       <div className="relative z-10 mx-auto w-[270px] sm:w-[300px] mt-2 flex-1 flex flex-col justify-end">
-        <div
-          className={`relative rounded-t-[2.8rem] border-[7px] border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16] transition-transform duration-300 ${
-            is3DMode ? "rotate-[-1.5deg] scale-[1.02] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)]" : ""
-          }`}
-        >
-          {/* Camera Notch / Dynamic Island */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 z-30 h-4 w-20 rounded-full bg-zinc-950 flex items-center justify-center shadow-inner">
-            <div className="h-2 w-2 rounded-full bg-zinc-800 mr-2" />
-            <div className="h-1.5 w-1.5 rounded-full bg-blue-900/70" />
-          </div>
-
-          {/* Screen Content */}
+        <div className="relative rounded-t-[2.8rem] border-[7px] border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16]">
           {uploadedImage ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={uploadedImage}
-              alt="App Screen"
-              className="h-full w-full object-cover object-top"
-            />
+            <img src={uploadedImage} alt="Screen" className="h-full w-full object-cover object-top" />
           ) : (
             <MockPhoneUi scene={scene} lang={lang} />
           )}
@@ -778,9 +987,10 @@ function MobileTemplate({
 }
 
 // ---------------------------------------------------------------------------
-// 2. ANDROID TV TEMPLATE (Widescreen 16:9 Style)
+// 2. ANDROID TV LAYOUT RENDERER
 // ---------------------------------------------------------------------------
-function TvTemplate({
+function TvLayoutRenderer({
+  layout,
   style,
   title,
   subtitle,
@@ -788,8 +998,8 @@ function TvTemplate({
   uploadedImage,
   scene,
   lang,
-  is3DMode,
 }: {
+  layout: LayoutMode;
   style: TemplateStyle;
   title: string;
   subtitle: string;
@@ -797,7 +1007,6 @@ function TvTemplate({
   uploadedImage: string | null;
   scene: PresetScene;
   lang: Lang;
-  is3DMode: boolean;
 }) {
   const getContainerStyle = () => {
     switch (style) {
@@ -812,14 +1021,59 @@ function TvTemplate({
     }
   };
 
+  // DUAL MULTI LAYOUT FOR TV: TV Screen + Phone sending Wi-Fi sync!
+  if (layout === "dual_multi" || layout === "floating_badges") {
+    return (
+      <div
+        className={`relative w-[740px] sm:w-[820px] h-[560px] rounded-[3rem] border-4 p-8 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
+      >
+        <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-4">
+          <div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
+              <Share2 size={12} />
+              Wireless LAN Sync & Share
+            </span>
+            <h3 className="mt-2 text-2xl font-bold font-display tracking-tight text-white">
+              {title}
+            </h3>
+            <p className="mt-1 text-xs text-zinc-300">{subtitle}</p>
+          </div>
+
+          <div className="flex flex-col gap-1.5 items-end">
+            {scene.features[lang].map((feat, idx) => (
+              <span key={idx} className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium text-zinc-300">
+                ✓ {feat}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* TV Display with Phone Syncing */}
+        <div className="relative z-10 mx-auto w-full max-w-[620px] flex-1 mt-4 flex items-end justify-center">
+          {/* Main TV Screen */}
+          <div className="w-[520px] aspect-[16/9] rounded-xl border-[6px] border-zinc-700 bg-zinc-950 shadow-2xl overflow-hidden relative">
+            {uploadedImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={uploadedImage} alt="TV Screen" className="h-full w-full object-cover" />
+            ) : (
+              <MockTvUi lang={lang} />
+            )}
+          </div>
+
+          {/* Small Phone on the right sending APK */}
+          <div className="absolute -right-4 bottom-2 z-30 w-36 rounded-t-2xl border-4 border-b-0 border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-[9/16]">
+            <MockPhoneUi scene={PRESET_SCENES.mobile[4]} lang={lang} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // STANDARD TV LAYOUT
   return (
     <div
       className={`relative w-[720px] sm:w-[800px] h-[540px] rounded-[3rem] border-4 p-8 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
     >
-      {/* Glow Effects */}
-      <div className="pointer-events-none absolute -top-20 left-1/3 h-80 w-80 rounded-full bg-[color:var(--brand)]/20 blur-3xl" />
-
-      {/* Top Marketing Banner */}
       <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-4">
         <div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
@@ -834,37 +1088,22 @@ function TvTemplate({
 
         <div className="flex flex-col gap-1.5 items-end">
           {scene.features[lang].map((feat, idx) => (
-            <span
-              key={idx}
-              className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium text-zinc-300"
-            >
+            <span key={idx} className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium text-zinc-300">
               ✓ {feat}
             </span>
           ))}
         </div>
       </div>
 
-      {/* Realistic Smart TV Display Frame */}
       <div className="relative z-10 mx-auto w-full max-w-[590px] flex-1 mt-4 flex flex-col items-center justify-end">
-        {/* TV Screen */}
-        <div
-          className={`w-full aspect-[16/9] rounded-xl border-[6px] border-zinc-700 bg-zinc-950 shadow-2xl overflow-hidden relative transition-transform ${
-            is3DMode ? "scale-[1.01] shadow-[0_20px_40px_rgba(0,0,0,0.8)]" : ""
-          }`}
-        >
+        <div className="w-full aspect-[16/9] rounded-xl border-[6px] border-zinc-700 bg-zinc-950 shadow-2xl overflow-hidden relative">
           {uploadedImage ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={uploadedImage}
-              alt="TV Screen"
-              className="h-full w-full object-cover"
-            />
+            <img src={uploadedImage} alt="TV Screen" className="h-full w-full object-cover" />
           ) : (
             <MockTvUi lang={lang} />
           )}
         </div>
-
-        {/* TV Base / Stand */}
         <div className="h-3 w-32 bg-zinc-600 rounded-b-md shadow-lg" />
         <div className="h-1.5 w-48 bg-zinc-700 rounded-full shadow" />
       </div>
@@ -873,9 +1112,10 @@ function TvTemplate({
 }
 
 // ---------------------------------------------------------------------------
-// 3. WEAR OS SMARTWATCH TEMPLATE (Square / Circular Watch Style)
+// 3. WEAR OS SMARTWATCH LAYOUT RENDERER
 // ---------------------------------------------------------------------------
-function WearOsTemplate({
+function WearOsLayoutRenderer({
+  layout,
   style,
   title,
   subtitle,
@@ -884,6 +1124,7 @@ function WearOsTemplate({
   scene,
   lang,
 }: {
+  layout: LayoutMode;
   style: TemplateStyle;
   title: string;
   subtitle: string;
@@ -907,12 +1148,8 @@ function WearOsTemplate({
 
   return (
     <div
-      className={`relative w-[440px] sm:w-[500px] h-[660px] rounded-[3rem] border-4 p-6 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
+      className={`relative w-[440px] sm:w-[500px] h-[680px] rounded-[3rem] border-4 p-6 flex flex-col justify-between overflow-hidden shadow-2xl select-none transition-all ${getContainerStyle()}`}
     >
-      {/* Glow Effects */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-[color:var(--brand)]/25 blur-3xl" />
-
-      {/* Header */}
       <div className="relative z-10 text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand)] px-3.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
           <Watch size={12} />
@@ -924,26 +1161,16 @@ function WearOsTemplate({
         <p className="mt-1 text-xs text-zinc-300 px-4">{subtitle}</p>
       </div>
 
-      {/* Realistic Smartwatch Case & Bezel */}
       <div className="relative z-10 mx-auto my-auto flex items-center justify-center">
-        {/* Watch Straps */}
         <div className="absolute -top-7 h-9 w-32 bg-zinc-800 rounded-t-2xl shadow-inner border border-zinc-700/50" />
         <div className="absolute -bottom-7 h-9 w-32 bg-zinc-800 rounded-b-2xl shadow-inner border border-zinc-700/50" />
-
-        {/* Watch Crown (Side Button) */}
         <div className="absolute -right-3.5 h-11 w-3.5 rounded-r-md bg-zinc-600 border border-zinc-500 shadow-lg" />
 
-        {/* Watch Metallic Case */}
         <div className="relative h-68 w-68 rounded-full border-[12px] border-zinc-700 bg-zinc-950 p-2 shadow-2xl flex items-center justify-center overflow-hidden ring-2 ring-zinc-800">
-          {/* Inner Display Ring */}
           <div className="relative h-full w-full rounded-full bg-black flex items-center justify-center overflow-hidden">
             {uploadedImage ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={uploadedImage}
-                alt="Watch Screen"
-                className="h-full w-full object-cover"
-              />
+              <img src={uploadedImage} alt="Watch Screen" className="h-full w-full object-cover" />
             ) : (
               <MockWatchUi lang={lang} />
             )}
@@ -951,13 +1178,9 @@ function WearOsTemplate({
         </div>
       </div>
 
-      {/* Bottom Feature Badges */}
       <div className="relative z-10 flex justify-center gap-2">
         {scene.features[lang].map((f, i) => (
-          <span
-            key={i}
-            className="rounded-full bg-white/10 px-3 py-0.5 text-[10px] font-medium text-zinc-300"
-          >
+          <span key={i} className="rounded-full bg-white/10 px-3 py-0.5 text-[10px] font-medium text-zinc-300">
             ✓ {f}
           </span>
         ))}
@@ -967,14 +1190,13 @@ function WearOsTemplate({
 }
 
 // ---------------------------------------------------------------------------
-// MOCK UI PREVIEWS (Rendered when no screenshot is uploaded)
+// MOCK UI PREVIEWS
 // ---------------------------------------------------------------------------
 
 function MockPhoneUi({ scene, lang }: { scene: PresetScene; lang: Lang }) {
   const isEn = lang === "en";
   return (
     <div className="h-full w-full bg-[#1c1917] p-4 text-white font-sans flex flex-col justify-between pt-8 text-xs">
-      {/* App Bar */}
       <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
         <div className="flex items-center gap-2">
           <div className="h-6 w-6 rounded-lg bg-[color:var(--brand)] flex items-center justify-center font-bold text-[10px] text-white">
@@ -990,7 +1212,6 @@ function MockPhoneUi({ scene, lang }: { scene: PresetScene; lang: Lang }) {
         </span>
       </div>
 
-      {/* Main Mock Card */}
       <div className="my-auto space-y-3">
         <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5 space-y-2.5">
           <div className="flex items-center justify-between">
@@ -1022,7 +1243,6 @@ function MockPhoneUi({ scene, lang }: { scene: PresetScene; lang: Lang }) {
           </div>
         </div>
 
-        {/* Security & Verification Chip */}
         <div className="flex items-center justify-between rounded-xl bg-green-950/40 border border-green-500/30 px-3 py-2 text-[10px] text-green-300">
           <div className="flex items-center gap-1.5">
             <ShieldCheck size={14} className="text-green-400" />
@@ -1032,7 +1252,6 @@ function MockPhoneUi({ scene, lang }: { scene: PresetScene; lang: Lang }) {
         </div>
       </div>
 
-      {/* Action Buttons */}
       <div className="space-y-1.5 pt-2">
         <button className="w-full h-9 rounded-xl bg-[color:var(--brand)] font-bold text-white flex items-center justify-center gap-1.5 shadow-lg">
           <FolderDown size={14} />
