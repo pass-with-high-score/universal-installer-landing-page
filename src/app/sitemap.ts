@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ERRORS } from "@/lib/errors";
+import { ARTICLES } from "@/lib/articles";
 
 const BASE_URL = "https://universal-installer.pwhs.app";
 
@@ -18,6 +19,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    ...ARTICLES.map((a) => ({
+      url: `${BASE_URL}/blog/${a.slug}`,
+      lastModified: new Date(a.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    })),
     {
       url: `${BASE_URL}/tools/apk-analyzer`,
       lastModified: now,

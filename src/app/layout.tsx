@@ -146,6 +146,12 @@ export default function RootLayout({
                 Guide
               </Link>
               <Link
+                href="/blog"
+                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
+              >
+                Blog
+              </Link>
+              <Link
                 href="/tools/apk-analyzer"
                 className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               >
@@ -215,6 +221,9 @@ export default function RootLayout({
               </Link>
               <Link href="/guide" className="hover:text-zinc-900 dark:hover:text-white">
                 Guide
+              </Link>
+              <Link href="/blog" className="hover:text-zinc-900 dark:hover:text-white">
+                Blog
               </Link>
               <Link href="/errors" className="hover:text-zinc-900 dark:hover:text-white">
                 Install errors

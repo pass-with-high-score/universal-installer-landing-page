@@ -8,6 +8,7 @@ import { Menu, X, Github, Heart } from "lucide-react";
 const links = [
   { href: "/#features", label: "Features" },
   { href: "/guide", label: "Guide" },
+  { href: "/blog", label: "Blog & Guides" },
   { href: "/tools/apk-analyzer", label: "APK Analyzer" },
   { href: "/errors", label: "Install errors" },
   { href: "/privacy", label: "Privacy Policy" },
