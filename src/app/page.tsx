@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import TrackedLink from "@/components/TrackedLink";
-import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X, Tv } from "lucide-react";
+import { Github, Heart, Layout, ArrowRight, ShieldCheck, Sparkles, Smartphone, Download, Share2, User, Star, Check, X, Tv, Watch } from "lucide-react";
 import { FaGooglePlay } from "react-icons/fa";
 import { SiFdroid } from "react-icons/si";
 
@@ -63,7 +63,7 @@ const comparison = [
   { feature: "LAN Sync & Share", universal: true, system: false, others: false },
   { feature: "VirusTotal Integration", universal: true, system: false, others: false },
   { feature: "Material 3 Expressive UI", universal: true, system: "standard", others: "classic" },
-  { feature: "Android TV Optimization", universal: true, system: false, others: false },
+  { feature: "Wear OS & Android TV Support", universal: true, system: false, others: false },
 ];
 
 const shizuku = [
@@ -121,11 +121,11 @@ const structuredData = {
       "@type": "SoftwareApplication",
       "@id": `${SITE_URL}/#app`,
       name: "Universal Installer",
-      operatingSystem: "Android 7.0+, Android TV",
+      operatingSystem: "Android 7.0+, Wear OS, Android TV",
       applicationCategory: "UtilitiesApplication",
       applicationSubCategory: "Package Manager",
       description:
-        "Professional APK/XAPK installer with expressive animations, installer profiles, and LAN sharing. Supports split APKs, VirusTotal, and silent installs via Shizuku, Root or Dhizuku.",
+        "Professional APK/XAPK installer for Phone, Wear OS, and Android TV with expressive animations, installer profiles, and LAN sharing. Supports split APKs, VirusTotal, and silent installs via Shizuku, Root or Dhizuku.",
       url: SITE_URL,
       image: `${SITE_URL}/images/featureGraphic.png`,
       downloadUrl:
@@ -144,13 +144,14 @@ const structuredData = {
         "Expressive Bouncy UI",
         "Installer Profiles",
         "Install APK, APKS, XAPK, APKM",
+        "Wear OS Smartwatch Support",
         "Split APK & OBB support",
         "Silent install via Shizuku, Root or Dhizuku",
         "LAN Sync & Share",
         "VirusTotal scanning",
       ],
       keywords:
-        "APK installer, XAPK installer, split APK, Shizuku, Dhizuku, silent install no root, Android package manager, installer profiles",
+        "APK installer, XAPK installer, split APK, Shizuku, Dhizuku, silent install no root, Android package manager, installer profiles, Wear OS APK installer",
     },
   ],
 };
@@ -177,21 +178,20 @@ export default async function Home() {
           <div className="flex flex-col items-start">
             <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--brand)]/30 bg-[color:var(--brand-soft)] px-3 py-1 text-xs font-medium text-[color:var(--brand-dark)] dark:text-orange-300">
               <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--brand)]" />
-              Expressive · Open source · No ads
+              Phone · Wear OS · Android TV
             </span>
             <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl md:text-6xl dark:text-white font-display">
               The <span className="text-[color:var(--brand)]">premium</span>
-              <br className="hidden sm:inline" /> Android & TV installer.
+              <br className="hidden sm:inline" /> Android & Wear OS installer.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300">
-              Universal Installer is a professional package manager with fluid animations,
-              custom installer profiles, and powerful privileged features.
+              Universal Installer is a professional package manager for Phone, Wear OS smartwatches, and Android TV with fluid animations, custom installer profiles, and powerful privileged features.
             </p>
 
             {/* Stats Row */}
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
               <div className="flex flex-col">
-                <span className="text-2xl font-bold text-zinc-900 dark:text-white">30k+</span>
+                <span className="text-2xl font-bold text-zinc-900 dark:text-white">150k+</span>
                 <span className="text-sm text-zinc-500 dark:text-zinc-400">Downloads</span>
               </div>
               <div className="flex flex-col">
@@ -259,28 +259,30 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Choose your version */}
+      {/* Download */}
       <section id="download" className="mx-auto max-w-6xl px-4 py-12 scroll-mt-20 sm:px-6 sm:py-24">
         <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-display">Choose your version</h2>
-            <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Select the flavor that best fits your device setup.</p>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-display">Get Universal Installer</h2>
+            <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Available across all your Android devices — Phone, Tablet, Wear OS &amp; TV.</p>
         </div>
-        <div className="grid gap-8 md:grid-cols-2">
-            {/* Android Version */}
-            <div className="flex flex-col rounded-3xl border-2 border-[color:var(--brand)] bg-white p-8 dark:bg-zinc-950 shadow-xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 bg-[color:var(--brand)] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-widest">Recommended</div>
-                <h3 className="text-2xl font-bold">Android Version</h3>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Everything the app has to offer. Available everywhere.</p>
+        <div className="mx-auto max-w-2xl">
+            <div className="flex flex-col rounded-3xl border-2 border-[color:var(--brand)] bg-white p-8 dark:bg-zinc-950 shadow-xl relative overflow-hidden group sm:p-10">
+                <div className="absolute top-0 right-0 bg-[color:var(--brand)] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-widest">All Platforms</div>
+                <h3 className="text-2xl font-bold sm:text-3xl font-display">Phone, Tablet, Wear OS &amp; TV</h3>
+                <p className="mt-2 text-zinc-600 dark:text-zinc-400">One unified installer tailored for touchscreens, smartwatches, and big TV screens.</p>
                 <div className="mt-6 flex-1">
-                    <ul className="space-y-3">
+                    <ul className="grid gap-3 sm:grid-cols-2">
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> Root Support included
+                            <Check size={18} className="text-green-500 shrink-0" /> Phone, Tablet &amp; Wear OS on Google Play
                         </li>
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> Shizuku &amp; Dhizuku Support
+                            <Check size={18} className="text-green-500 shrink-0" /> Android TV &amp; D-Pad navigation
                         </li>
                         <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> All features unlocked
+                            <Check size={18} className="text-green-500 shrink-0" /> Shizuku, Root &amp; Dhizuku support
+                        </li>
+                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+                            <Check size={18} className="text-green-500 shrink-0" /> Split APK, APKS, XAPK &amp; APKM
                         </li>
                     </ul>
                 </div>
@@ -291,7 +293,7 @@ export default async function Home() {
                         eventParams={{ platform: 'play_store', device: 'android' }}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-zinc-900"
+                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.01] active:scale-[0.99] dark:bg-white dark:text-zinc-900 text-base"
                     >
                         <FaGooglePlay size={18} />
                         Get it on Google Play
@@ -302,10 +304,10 @@ export default async function Home() {
                         eventParams={{ platform: 'github', device: 'android' }}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[color:var(--brand)] text-white font-bold transition-all hover:bg-[color:var(--brand-dark)] hover:scale-[1.02] active:scale-[0.98]"
+                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[color:var(--brand)] text-white font-bold transition-all hover:bg-[color:var(--brand-dark)] hover:scale-[1.01] active:scale-[0.99] text-base"
                     >
                         <Github size={18} />
-                        GitHub Release
+                        GitHub Releases (APK &amp; TV APK)
                     </TrackedLink>
                     <div className="grid grid-cols-2 gap-3">
                         <TrackedLink
@@ -331,38 +333,6 @@ export default async function Home() {
                             IzzyOnDroid
                         </TrackedLink>
                     </div>
-                </div>
-            </div>
-
-            {/* Android TV Version */}
-            <div className="flex flex-col rounded-3xl border border-black/5 bg-zinc-50 p-8 dark:bg-zinc-900 dark:border-white/5 group">
-                <h3 className="text-2xl font-bold">Android TV</h3>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Optimized for big screens and remote controls.</p>
-                <div className="mt-6 flex-1">
-                    <ul className="space-y-3">
-                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> D-Pad Navigation
-                        </li>
-                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> LAN Sync & Share
-                        </li>
-                        <li className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
-                            <Check size={18} className="text-green-500" /> Root, Shizuku & Dhizuku
-                        </li>
-                    </ul>
-                </div>
-                <div className="mt-8 flex flex-col gap-3">
-                    <TrackedLink
-                        href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
-                        eventName="click_download"
-                        eventParams={{ platform: 'github', device: 'tv' }}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white font-bold transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-zinc-900"
-                    >
-                        <Github size={18} />
-                        Download from GitHub
-                    </TrackedLink>
                 </div>
             </div>
         </div>

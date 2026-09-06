@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
   Smartphone,
   Zap,
@@ -25,6 +24,8 @@ export const metadata: Metadata = {
     "install split APK Android",
     "APKS XAPK APKM installer",
     "allow downgrade Android",
+    "Wear OS APK installer",
+    "Wear OS package installer",
     "Android TV APK installer",
   ],
   alternates: { canonical: "/guide" },
@@ -366,15 +367,17 @@ export default function GuidePage() {
               on the box, and install without fighting a touch UI with a remote.
             </p>
             <p className="mt-3">
-              It is in closed testing —{" "}
-              <Link
-                href="/testing"
+              It has its own package name, so it installs alongside the phone
+              app rather than replacing it. You can download the Android TV APK from{" "}
+              <a
+                href="https://github.com/pass-with-high-score/universal-installer/releases/latest"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-medium text-[color:var(--brand)] hover:underline"
               >
-                join the TV beta
-              </Link>
-              . It has its own package name, so it installs alongside the phone
-              app rather than replacing it.
+                GitHub Releases
+              </a>
+              .
             </p>
           </Section>
 

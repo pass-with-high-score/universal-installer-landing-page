@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 const SITE_URL = "https://universal-installer.pwhs.app";
 const SITE_NAME = "Universal Installer";
 const SITE_DESCRIPTION =
-  "Professional Android package manager with expressive UI, installer profiles, silent install via Shizuku, and LAN sharing. The ultimate APK, APKS, XAPK, and APKM installer for power users. Open source and secure.";
+  "Professional Android package manager for Phone, Wear OS smartwatches & Android TV with expressive UI, installer profiles, silent install via Shizuku, and LAN sharing. The ultimate APK, APKS, XAPK, and APKM installer for power users.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     "APKS installer",
     "XAPK installer",
     "APKM installer",
+    "Wear OS APK installer",
+    "Wear OS package installer",
+    "Android TV APK installer",
     "installer profiles",
     "expressive ui",
     "bouncy animations",
@@ -155,12 +158,6 @@ export default function RootLayout({
                 Errors
               </Link>
               <Link
-                href="/testing"
-                className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
-              >
-                TV beta
-              </Link>
-              <Link
                 href="/privacy"
                 className="rounded-full px-3 py-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
               >
@@ -224,9 +221,6 @@ export default function RootLayout({
               </Link>
               <Link href="/tools/apk-analyzer" className="hover:text-zinc-900 dark:hover:text-white">
                 APK Analyzer
-              </Link>
-              <Link href="/testing" className="hover:text-zinc-900 dark:hover:text-white">
-                Android TV beta
               </Link>
               <a
                 href="https://github.com/pass-with-high-score/universal-installer"

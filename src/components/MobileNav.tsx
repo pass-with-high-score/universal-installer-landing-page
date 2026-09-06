@@ -10,7 +10,6 @@ const links = [
   { href: "/guide", label: "Guide" },
   { href: "/tools/apk-analyzer", label: "APK Analyzer" },
   { href: "/errors", label: "Install errors" },
-  { href: "/testing", label: "Android TV beta" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
 ];
