@@ -191,7 +191,7 @@ export default async function Home() {
             {/* Stats Row */}
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
               <div className="flex flex-col">
-                <span className="text-2xl font-bold text-zinc-900 dark:text-white">150k+</span>
+                <span className="text-2xl font-bold text-zinc-900 dark:text-white">300k+</span>
                 <span className="text-sm text-zinc-500 dark:text-zinc-400">Downloads</span>
               </div>
               <div className="flex flex-col">
@@ -203,7 +203,7 @@ export default async function Home() {
                     ))}
                   </div>
                 </div>
-                <span className="text-sm text-zinc-500 dark:text-zinc-400">App Store Rating</span>
+                <span className="text-sm text-zinc-500 dark:text-zinc-400">Play Store Rating (500+)</span>
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-zinc-900 dark:text-white">{stars}</span>
@@ -588,7 +588,7 @@ export default async function Home() {
             The ultimate package installer.
           </h2>
           <p className="max-w-xl text-zinc-600 dark:text-zinc-300">
-            Join 30,000+ users managing their Android apps with power and style.
+            Join 150,000+ users managing their Android apps with power and style.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 items-center">
              <TrackedLink
